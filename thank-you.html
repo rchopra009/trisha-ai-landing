@@ -4,24 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You & Try Trisha AI - Trisha AI Waitlist</title>
-    <link rel="stylesheet" href="style.css"> <style>
-        /* Specific styles for thank you page elements if needed */
-        .thank-you-content {
-            text-align: center;
-            padding: 30px 20px; /* Add padding */
-        }
-         .home-link {
-            margin-top: 30px;
-            display: inline-block;
-            text-decoration: none;
-            color: #FF661F; /* OTF Orange */
-            font-weight: bold;
-        }
-        .home-link:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    </head>
 <body>
 
     <header style="text-align: center; border-bottom: none; box-shadow: none; background: none; padding-top: 20px;">
@@ -29,8 +19,7 @@
     </header>
 
     <main>
-        <section class="thank-you-content">
-            <p>Thanks for joining the waitlist for Trisha AI!</p>
+        <section class="thank-you-content" style="background: none; border-radius: 0;"> <p>Thanks for joining the waitlist for Trisha AI!</p>
             <p>We'll keep you updated via email. In the meantime, try the interactive prototype below:</p>
 
             <div class="demo-chat-container">
@@ -44,7 +33,7 @@
                 <div class="demo-chat-messages" id="chat-messages">
                     </div>
                 <div class="demo-chat-input">
-                    <input type="text" id="user-input" placeholder="Ask something (e.g., about marketing)..." autocomplete="off">
+                    <input type="text" id="user-input" placeholder="Ask about marketing, sales, members..." autocomplete="off">
                     <button id="send-button">➤</button>
                 </div>
             </div>
@@ -54,40 +43,67 @@
         </section>
     </main>
 
-    <footer style="margin-top: 20px;"> <p>&copy; 2025 Trisha AI. All rights reserved.</p>
+    <footer> <p>&copy; 2025 Trisha AI. All rights reserved.</p>
     </footer>
 
     <script>
         const TrishaAI = (function() {
           const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+          // --- Marketing Service ---
           const marketingService = {
-            createCampaign: async (campaignData) => { console.log('Creating campaign', campaignData); await delay(300); return { id: `campaign-${Date.now()}`, status: 'draft', ...campaignData }; },
-            getCampaignMetrics: async (campaignId) => { console.log('Getting metrics', campaignId); await delay(200); return { campaignId, impressions: Math.floor(Math.random()*10000)+1000, clicks: Math.floor(Math.random()*500)+50 }; },
-            generateOutreachIdeas: async (parameters) => { console.log('Generating ideas', parameters); await delay(500); return [{ id: 'idea-1', title: 'Partner with Local Businesses'}, { id: 'idea-2', title: 'Community Fitness Challenge'}]; },
+            // createCampaign, getCampaignMetrics, generateOutreachIdeas (simplified)
+            generateOutreachIdeas: async (parameters) => { await delay(500); return [{ id: 'idea-1', title: 'Partner with Local Businesses'}, { id: 'idea-2', title: 'Community Fitness Challenge'}]; },
             processQuery: async (query) => {
-              console.log('Processing marketing query', query); await delay(1200); // Simulate longer processing
+              console.log('Processing marketing query', query); await delay(1200);
               let response = { type: 'general_marketing', message: `Okay, regarding marketing for "${query}", I can help manage campaigns or suggest local outreach ideas. For example, we could partner with nearby health stores.` };
+              // Simplified logic from before
               if (query.toLowerCase().includes('ideas')) {
                  response.message = 'Here are some local outreach ideas I generated: Partner with local health stores, Run a referral contest.';
-                 response.ideas = await marketingService.generateOutreachIdeas({});
               } else if (query.toLowerCase().includes('campaign')) {
                  response.message = `I can help create a new marketing campaign based on "${query}". What platform and budget are you thinking?`;
               }
               return response;
             }
           };
-          // Add other services (sales, finance, etc.) here similarly if needed for more complex demo later
-          // const salesService = { ... };
-          // const financeService = { ... };
-          // const operationsService = { ... };
-          // const hrService = { ... }; // Assuming HRO was meant to be hrService
 
-          return { // Expose the services
+          // --- Sales Service (Adapted from Node.js version) ---
+          const salesService = {
+            // Removed followUpLead, bookAppointment for simplicity in this demo script
+            getLeadMetrics: async () => {
+              console.log('Retrieving lead metrics'); await delay(200);
+              // Simplified mock data
+              return { totalLeads: 156, newLeadsThisWeek: 24, conversionRate: '15.4%', topLeadSource: 'Website' };
+            },
+             // Added mock membership metrics function
+            getMembershipMetrics: async () => {
+                console.log('Retrieving membership metrics'); await delay(350);
+                return { totalActiveMembers: 782, newMembersThisMonth: 24, churnRateThisMonth: '3.2%' };
+            },
+            processQuery: async (query) => {
+              console.log('Processing sales query', { query }); await delay(1000); // Delay for sales query
+              let response;
+              const lowerQuery = query.toLowerCase();
+
+              if (lowerQuery.includes('lead') || lowerQuery.includes('follow') || lowerQuery.includes('conversion') || lowerQuery.includes('rate')) {
+                   const metrics = await salesService.getLeadMetrics();
+                   response = { type: 'lead_metrics', message: `Okay, regarding sales leads: We currently have ${metrics.totalLeads} total leads with a conversion rate of ${metrics.conversionRate}. ${metrics.newLeadsThisWeek} new leads came in this week, primarily from the ${metrics.topLeadSource}.` };
+              } else if (lowerQuery.includes('appointment') || lowerQuery.includes('book')) {
+                   response = { type: 'appointment_info', message: 'I can help book appointments. We have availability tomorrow at 9:00 AM, 11:30 AM, and 4:00 PM.' };
+              } else if (lowerQuery.includes('member')) {
+                   const metrics = await salesService.getMembershipMetrics();
+                   response = { type: 'membership_info', message: `Currently, you have ${metrics.totalActiveMembers} active members. We gained ${metrics.newMembersThisMonth} new members this month, with a churn rate of ${metrics.churnRateThisMonth}.` };
+              } else {
+                   response = { type: 'general_sales', message: 'For sales questions, I can help with leads, appointments, or membership details.' };
+              }
+              return response;
+            }
+          };
+
+          // Expose both services
+          return {
             marketingService,
-            // salesService,
-            // financeService,
-            // operationsService,
-            // hrService
+            salesService
           };
         })();
     </script>
@@ -98,77 +114,76 @@
             const userInput = document.getElementById('user-input');
             const sendButton = document.getElementById('send-button');
 
-            // Function to add a message bubble to the chat
             function addMessage(text, sender) {
                 const messageDiv = document.createElement('div');
                 messageDiv.classList.add('demo-message');
                 messageDiv.classList.add(sender === 'user' ? 'demo-user-message' : 'demo-assistant-message');
                 messageDiv.textContent = text;
                 chatMessages.appendChild(messageDiv);
-                // Scroll to the bottom
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-
-            // Function to show typing indicator
             function showTypingIndicator() {
                 const typingDiv = document.createElement('div');
                 typingDiv.classList.add('demo-typing');
-                typingDiv.id = 'typing-indicator'; // Add ID to easily remove it
+                typingDiv.id = 'typing-indicator';
                 typingDiv.innerHTML = '<div class="demo-typing-dot"></div><div class="demo-typing-dot"></div><div class="demo-typing-dot"></div>';
                 chatMessages.appendChild(typingDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-
-            // Function to hide typing indicator
             function hideTypingIndicator() {
                 const indicator = document.getElementById('typing-indicator');
-                if (indicator) {
-                    indicator.remove();
-                }
+                if (indicator) { indicator.remove(); }
             }
 
-            // Function to handle user input
             async function handleUserInput() {
                 const inputText = userInput.value.trim();
-                if (inputText === '') return; // Do nothing if input is empty
+                if (inputText === '') return;
 
-                addMessage(inputText, 'user'); // Display user message
-                userInput.value = ''; // Clear input field
-
-                showTypingIndicator(); // Show typing indicator
+                addMessage(inputText, 'user');
+                userInput.value = '';
+                showTypingIndicator();
 
                 try {
-                    // --- Call the Mock Service ---
-                    // For this basic version, we'll always call the marketing query processing
-                    // You could add more complex logic here later to call different services
-                    const response = await TrishaAI.marketingService.processQuery(inputText);
+                    let response;
+                    const lowerInput = inputText.toLowerCase();
+
+                    // --- Basic Keyword Routing ---
+                    if (lowerInput.includes('member') || lowerInput.includes('lead') || lowerInput.includes('appoint') || lowerInput.includes('book') || lowerInput.includes('sale') || lowerInput.includes('conversion')) {
+                        console.log("Routing to Sales Service");
+                        response = await TrishaAI.salesService.processQuery(inputText);
+                    } else if (lowerInput.includes('market') || lowerInput.includes('campaign') || lowerInput.includes('social') || lowerInput.includes('outreach') || lowerInput.includes('ad')) {
+                        console.log("Routing to Marketing Service");
+                        response = await TrishaAI.marketingService.processQuery(inputText);
+                    }
+                    // Add more 'else if' blocks here for finance, ops, hr later
+                    else {
+                        // Default fallback if no keywords match
+                        console.log("Routing to Default Fallback");
+                        await new Promise(resolve => setTimeout(resolve, 500)); // Simulate thinking
+                        response = { message: "Thanks for your input: '" + inputText + "'. This prototype currently responds best to questions about 'marketing' or 'sales'/'members'/'leads'. Support for other areas is coming soon!" };
+                    }
                     // ---------------------------
 
-                    hideTypingIndicator(); // Hide typing indicator
-
-                    // Display assistant response - using the message property from mock service
+                    hideTypingIndicator();
                     addMessage(response.message || 'Sorry, I encountered an issue.', 'assistant');
 
                 } catch (error) {
-                    hideTypingIndicator(); // Hide indicator even if error
+                    hideTypingIndicator();
                     console.error("Error processing query:", error);
                     addMessage('Sorry, something went wrong while processing your request.', 'assistant');
                 }
             }
 
-            // Event Listeners
             sendButton.addEventListener('click', handleUserInput);
             userInput.addEventListener('keypress', function(e) {
-                // Check if Enter key was pressed (and Shift key wasn't, to allow multi-line)
                 if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault(); // Prevent default Enter behavior (like adding a new line)
+                    e.preventDefault();
                     handleUserInput();
                 }
             });
 
-            // Add initial assistant message
-             addMessage("Hi there! I'm Trisha, your AI business assistant prototype. Ask me something about marketing to see how I respond (e.g., 'any marketing ideas?').", 'assistant');
-
+             // Update initial message slightly
+             addMessage("Hi there! I'm Trisha, your AI assistant prototype. Try asking about 'marketing ideas' or 'how many members?'", 'assistant');
         });
     </script>
 
