@@ -1,12 +1,12 @@
-/* CSS extracted from the original demo HTML provided */
+/* CSS extracted from the original demo HTML provided + Base Styles */
 :root {
-    --primary: #FF661F;
-    --primary-light: #FF8C42;
-    --dark: #1a1a1a;
-    --dark-medium: #262626;
-    --dark-light: #333333;
-    --light: #f8f9fa;
-    --gray: #666666;
+    --primary: #FF661F;         /* OTF Orange */
+    --primary-light: #FF8C42;   /* Lighter Orange */
+    --dark: #1a1a1a;            /* Very Dark Grey/Black */
+    --dark-medium: #262626;      /* Dark Grey */
+    --dark-light: #333333;       /* Medium Dark Grey */
+    --light: #f8f9fa;           /* Very Light Grey/Off-white */
+    --gray: #666666;            /* Medium Grey */
 }
 
 * {
@@ -15,257 +15,132 @@
     box-sizing: border-box;
 }
 
-body { /* Applied to thank-you.html via its own body tag */
-    font-family: 'Open Sans', sans-serif;
+body { /* Applied to both index.html and thank-you.html */
+    font-family: 'Open Sans', sans-serif; /* Use Google Font */
     line-height: 1.6;
     color: var(--light);
     background-color: var(--dark);
-    /* display: flex; justify-content: center; align-items: center; min-height: 100vh; */ /* Base styles for centering might conflict, rely on thank-you page structure */
-    padding: 20px;
+    padding: 20px 0; /* Add padding top/bottom, remove side padding */
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; /* Use Google Font */
     font-weight: 700;
     margin-bottom: 1rem;
 }
 
-/* Interactive Chat Demo styles (Copied directly) */
-.demo-chat-container {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border-radius: 14px;
-    max-width: 800px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-    /* Removing 3D transform for potentially simpler rendering */
-    /* transform: perspective(1000px) rotateX(2deg); */
-    /* transition: transform 0.5s; */
-    height: 500px; /* Or adjust as needed */
-    display: flex;
-    flex-direction: column;
-    background-color: var(--dark-medium);
-    margin-top: 30px; /* Add some top margin */
-    margin-bottom: 30px; /* Add bottom margin */
-    border: 1px solid var(--dark-light); /* Added subtle border */
-}
-
-/* Remove hover effect if transform is removed */
-/* .demo-chat-container:hover {
-    transform: perspective(1000px) rotateX(0);
-} */
-
-.demo-chat-header {
-    background-color: var(--dark-light);
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.demo-chat-title {
-    display: flex;
-    align-items: center;
-}
-
-.demo-chat-title h3 {
-    margin: 0;
-    color: var(--primary);
-    font-size: 1.2rem;
-}
-
-.demo-chat-logo {
-    width: 30px;
-    height: 30px;
-    background-color: var(--primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 0.8rem;
-    margin-right: 10px;
-}
-
-.demo-status {
-    font-size: 0.8rem;
-    color: #4CAF50;
-}
-
-.demo-chat-messages {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.demo-message {
-    max-width: 80%;
-    padding: 12px 16px;
-    border-radius: 12px;
-    line-height: 1.5;
-    font-size: 0.95rem;
-    animation: fadeIn 0.3s forwards;
-    opacity: 0; /* Required for animation */
-}
-
-.demo-user-message {
-    align-self: flex-end;
-    background-color: var(--primary);
-    color: white;
-    border-top-right-radius: 4px;
-}
-
-.demo-assistant-message {
-    align-self: flex-start;
-    background-color: var(--dark-light);
-    color: var(--light);
-    border-top-left-radius: 4px;
-}
-
-.demo-chat-input {
-    padding: 15px 20px;
-    background-color: var(--dark-light);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.demo-chat-input input {
-    flex: 1;
-    padding: 12px 16px;
-    border-radius: 24px;
-    border: none;
-    background-color: var(--dark-medium);
-    color: var(--light);
-    font-size: 0.95rem;
-    font-family: 'Open Sans', sans-serif; /* Ensure input uses correct font */
-}
-
-.demo-chat-input input:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--primary);
-}
-
-.demo-chat-input button {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.2rem; /* Ensure button icon size */
-    transition: all 0.3s ease;
-}
-
-.demo-chat-input button:hover {
-    background-color: var(--primary-light);
-    transform: scale(1.05);
-}
-
-.demo-typing {
-    display: flex;
-    gap: 5px;
-    padding: 12px 16px;
-    background-color: var(--dark-light);
-    border-radius: 12px;
-    align-self: flex-start;
-    border-top-left-radius: 4px;
-    margin-bottom: 15px; /* Match message gap */
-    opacity: 0; /* Start hidden */
-    animation: fadeIn 0.3s forwards;
-}
-
-.demo-typing-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--light);
-    border-radius: 50%;
-    animation: typing 1.4s infinite ease-in-out both;
-}
-
-.demo-typing-dot:nth-child(1) { animation-delay: 0s; }
-.demo-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.demo-typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typing {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
-    30% { transform: translateY(-5px); opacity: 1; }
-}
-
-/* Agent response styling (from original demo - might not be used by current JS) */
-.agent-response-container {
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  max-width: 80%;
-  margin-bottom: 15px;
-}
-
-.agent-identifier {
-  font-size: 0.75rem;
-  margin-bottom: 4px;
-  font-weight: bold;
-  padding-left: 12px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); } /* Adjusted Y transform */
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Add base styles from previous combined CSS if needed for thank-you page structure */
-/* Basic Reset & Body Styling already partially covered */
-/* Header, Main, Footer basic structure for thank-you */
-body > header, body > main, body > footer { /* Target direct children if needed */
+/* Basic Structure Containers */
+header, main, footer {
     max-width: 800px; /* Limit content width */
     margin: 20px auto; /* Center content */
-    padding: 20px;
+    padding: 0 20px; /* Add side padding here instead of body */
     background-color: transparent;
     box-shadow: none;
 }
-body > main > section { /* Style section within main */
-     padding: 30px 20px;
+/* Add background / padding to sections inside main */
+main section {
+     padding: 40px 20px;
      margin-bottom: 20px;
      background-color: var(--dark-medium);
      border-radius: 8px;
 }
-body > footer {
+main section:last-child {
+    margin-bottom: 0;
+}
+/* Specific section adjustments if needed */
+#cta { /* Style CTA section from index.html */
     text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    font-size: 0.9em;
-    color: var(--gray);
-    border-top: 1px solid var(--dark-light);
+    background-color: var(--dark-light);
+    color: #fff;
+    padding: 50px 20px;
+    border-radius: 8px;
 }
-/* Thank you specific styles from thank-you.html */
-.thank-you-content {
+.thank-you-content { /* Style thank-you section */
     text-align: center;
-}
-.home-link {
-    margin-top: 30px;
-    display: inline-block;
-    text-decoration: none;
-    color: #FF661F;
-    font-weight: bold;
-}
-.home-link:hover {
-    text-decoration: underline;
+    padding: 30px 20px;
+    background-color: var(--dark-medium); /* Match other sections */
+    border-radius: 8px;
 }
 
-/* Ensure thank-you page headings use correct font */
-body > header h1 {
-    color: var(--primary);
-    font-family: 'Montserrat', sans-serif;
+/* Header Styles (index.html) */
+header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--dark-light);
+    margin-bottom: 40px; /* Add space below header */
 }
+header h1 { /* Main page H1 */
+    color: var(--primary);
+    font-size: 2.5em;
+    margin-bottom: 0.5rem;
+}
+header .sub-headline { /* Main page sub-headline */
+    font-size: 1.2em;
+    color: var(--light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+/* Header Styles (thank-you.html - simpler version) */
+body > header h1 { /* Target h1 directly under body>header if needed */
+     color: var(--primary); /* Ensure orange color */
+}
+
+/* General Heading Styles */
+h2 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--dark-light);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    font-size: 2em;
+    text-align: center;
+}
+h3 {
+    color: var(--primary-light);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+#cta h2 { /* CTA specific heading */
+    color: #fff;
+    border-bottom: none;
+    font-size: 1.8em;
+}
+
+
+/* Solution Section (index.html) */
+#solution .example-queries {
+    background-color: var(--dark-light);
+    border-left: 4px solid var(--primary);
+    padding: 15px 20px;
+    margin: 25px 0;
+    border-radius: 4px;
+}
+#solution blockquote {
+    margin: 10px 0;
+    font-style: italic;
+    color: var(--light);
+}
+
+/* Features Section (index.html) */
+#features ul { list-style: none; padding-left: 0; }
+#features li { margin-bottom: 12px; padding-left: 25px; position: relative; }
+#features li::before { content: '✓'; color: var(--primary); position: absolute; left: 0; font-weight: bold; font-size: 1.1em; }
+.feature-group { margin-bottom: 30px; }
+
+/* CTA Section elements (index.html) */
+#waitlist-button.button-link {
+    display: inline-block;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0, 0.3);
+    text-decoration: none;
+    text-align: center;
+    margin: 20px 0;
+}
+#waitlist-button.button-link:hover { background-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 6px 12px rgba
