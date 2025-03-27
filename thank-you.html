@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You & Try Trisha AI - Trisha AI Waitlist</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        /* Specific styles for thank you page elements if needed */
+        .thank-you-content {
+            text-align: center;
+            padding: 30px 20px; /* Add padding */
+        }
+         .home-link {
+            margin-top: 30px;
+            display: inline-block;
+            text-decoration: none;
+            color: #FF661F; /* OTF Orange */
+            font-weight: bold;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header style="text-align: center; border-bottom: none; box-shadow: none; background: none; padding-top: 20px;">
+        <h1>Thank You!</h1>
+    </header>
+
+    <main>
+        <section class="thank-you-content">
+            <p>Thanks for joining the waitlist for Trisha AI!</p>
+            <p>We'll keep you updated via email. In the meantime, try the interactive prototype below:</p>
+
+            <div class="demo-chat-container">
+                <div class="demo-chat-header">
+                    <div class="demo-chat-title">
+                        <div class="demo-chat-logo">AI</div>
+                        <h3>Try Trisha.AI</h3>
+                    </div>
+                    <span class="demo-status">Online</span>
+                </div>
+                <div class="demo-chat-messages" id="chat-messages">
+                    </div>
+                <div class="demo-chat-input">
+                    <input type="text" id="user-input" placeholder="Ask something (e.g., about marketing)..." autocomplete="off">
+                    <button id="send-button">➤</button>
+                </div>
+            </div>
+            <p>
+                <a href="index.html" class="home-link">← Back to Trisha AI Home</a>
+            </p>
+        </section>
+    </main>
+
+    <footer style="margin-top: 20px;"> <p>&copy; 2025 Trisha AI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const TrishaAI = (function() {
+          const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+          const marketingService = {
+            createCampaign: async (campaignData) => { console.log('Creating campaign', campaignData); await delay(300); return { id: `campaign-${Date.now()}`, status: 'draft', ...campaignData }; },
+            getCampaignMetrics: async (campaignId) => { console.log('Getting metrics', campaignId); await delay(200); return { campaignId, impressions: Math.floor(Math.random()*10000)+1000, clicks: Math.floor(Math.random()*500)+50 }; },
+            generateOutreachIdeas: async (parameters) => { console.log('Generating ideas', parameters); await delay(500); return [{ id: 'idea-1', title: 'Partner with Local Businesses'}, { id: 'idea-2', title: 'Community Fitness Challenge'}]; },
+            processQuery: async (query) => {
+              console.log('Processing marketing query', query); await delay(1200); // Simulate longer processing
+              let response = { type: 'general_marketing', message: `Okay, regarding marketing for "${query}", I can help manage campaigns or suggest local outreach ideas. For example, we could partner with nearby health stores.` };
+              if (query.toLowerCase().includes('ideas')) {
+                 response.message = 'Here are some local outreach ideas I generated: Partner with local health stores, Run a referral contest.';
+                 response.ideas = await marketingService.generateOutreachIdeas({});
+              } else if (query.toLowerCase().includes('campaign')) {
+                 response.message = `I can help create a new marketing campaign based on "${query}". What platform and budget are you thinking?`;
+              }
+              return response;
+            }
+          };
+          // Add other services (sales, finance, etc.) here similarly if needed for more complex demo later
+          // const salesService = { ... };
+          // const financeService = { ... };
+          // const operationsService = { ... };
+          // const hrService = { ... }; // Assuming HRO was meant to be hrService
+
+          return { // Expose the services
+            marketingService,
+            // salesService,
+            // financeService,
+            // operationsService,
+            // hrService
+          };
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+
+            // Function to add a message bubble to the chat
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('demo-message');
+                messageDiv.classList.add(sender === 'user' ? 'demo-user-message' : 'demo-assistant-message');
+                messageDiv.textContent = text;
+                chatMessages.appendChild(messageDiv);
+                // Scroll to the bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Function to show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.classList.add('demo-typing');
+                typingDiv.id = 'typing-indicator'; // Add ID to easily remove it
+                typingDiv.innerHTML = '<div class="demo-typing-dot"></div><div class="demo-typing-dot"></div><div class="demo-typing-dot"></div>';
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Function to hide typing indicator
+            function hideTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+
+            // Function to handle user input
+            async function handleUserInput() {
+                const inputText = userInput.value.trim();
+                if (inputText === '') return; // Do nothing if input is empty
+
+                addMessage(inputText, 'user'); // Display user message
+                userInput.value = ''; // Clear input field
+
+                showTypingIndicator(); // Show typing indicator
+
+                try {
+                    // --- Call the Mock Service ---
+                    // For this basic version, we'll always call the marketing query processing
+                    // You could add more complex logic here later to call different services
+                    const response = await TrishaAI.marketingService.processQuery(inputText);
+                    // ---------------------------
+
+                    hideTypingIndicator(); // Hide typing indicator
+
+                    // Display assistant response - using the message property from mock service
+                    addMessage(response.message || 'Sorry, I encountered an issue.', 'assistant');
+
+                } catch (error) {
+                    hideTypingIndicator(); // Hide indicator even if error
+                    console.error("Error processing query:", error);
+                    addMessage('Sorry, something went wrong while processing your request.', 'assistant');
+                }
+            }
+
+            // Event Listeners
+            sendButton.addEventListener('click', handleUserInput);
+            userInput.addEventListener('keypress', function(e) {
+                // Check if Enter key was pressed (and Shift key wasn't, to allow multi-line)
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); // Prevent default Enter behavior (like adding a new line)
+                    handleUserInput();
+                }
+            });
+
+            // Add initial assistant message
+             addMessage("Hi there! I'm Trisha, your AI business assistant prototype. Ask me something about marketing to see how I respond (e.g., 'any marketing ideas?').", 'assistant');
+
+        });
+    </script>
+
+</body>
+</html>
