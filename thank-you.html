@@ -8,91 +8,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* CSS From Your Working Demo File */
-        :root {
-            --primary: #FF661F;
-            --primary-light: #FF8C42;
-            --dark: #1a1a1a;
-            --dark-medium: #262626;
-            --dark-light: #333333;
-            --light: #f8f9fa;
-            --gray: #666666;
+        /* CSS From Your Original Working Demo File */
+        :root { /* ... CSS Variables ... */
+            --primary: #FF661F; --primary-light: #FF8C42; --dark: #1a1a1a; --dark-medium: #262626; --dark-light: #333333; --light: #f8f9fa; --gray: #666666;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { /* Adjusted for page flow */
+            font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--light); background-color: var(--dark); padding: 20px;
+        }
+        .page-wrapper { max-width: 850px; margin: 20px auto; text-align: center; } /* Wrapper styles */
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 1rem; }
+        h1 { color: var(--primary); margin-top: 20px; margin-bottom: 20px; } /* Thank You H1 */
+        .intro-text { margin-bottom: 10px; } /* Intro P tags */
+        .home-link { margin-top: 30px; display: inline-block; text-decoration: none; color: var(--primary); font-weight: bold; } /* Back link */
+        .home-link:hover { text-decoration: underline; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: var(--light);
-            background-color: var(--dark);
-            /* Removed flex centering to allow content flow */
-            padding: 20px;
-        }
-
-        /* Added simple container for centering content */
-        .page-wrapper {
-            max-width: 850px;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        /* Style for Thank You heading */
-         h1 {
-             color: var(--primary);
-             margin-top: 20px;
-             margin-bottom: 20px;
-         }
-         /* Style for intro text */
-         .intro-text {
-            margin-bottom: 10px;
-         }
-         /* Style for back link */
-         .home-link {
-            margin-top: 30px;
-            display: inline-block;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: bold;
-        }
-        .home-link:hover {
-            text-decoration: underline;
-        }
-
-
-        /* Interactive Chat Demo Styles (From Your File) */
-        .demo-chat-container {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 14px;
-            max-width: 800px;
-            width: 100%;
-            margin: 30px auto; /* Use margin auto for centering block */
-            overflow: hidden;
-            transform: perspective(1000px) rotateX(2deg);
-            transition: transform 0.5s;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--dark-medium);
-            text-align: left; /* Reset text align from wrapper */
-            border: 1px solid var(--dark-light);
-        }
-
-        .demo-chat-container:hover {
-            transform: perspective(1000px) rotateX(0);
-        }
-
-        /* ... (All other .demo-chat-* and animation styles from your file go here - truncated for brevity but are included in the copy block) ... */
-        .demo-chat-header { background-color: var(--dark-light); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        /* Interactive Chat Demo Styles (Copied directly - Truncated for display) */
+        .demo-chat-container { /* ... */ box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 14px; max-width: 800px; width: 100%; margin: 30px auto; overflow: hidden; transform: perspective(1000px) rotateX(2deg); transition: transform 0.5s; height: 500px; display: flex; flex-direction: column; background-color: var(--dark-medium); text-align: left; border: 1px solid var(--dark-light); }
+        .demo-chat-container:hover { transform: perspective(1000px) rotateX(0); }
+        .demo-chat-header { /* ... */ background-color: var(--dark-light); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .demo-chat-title { display: flex; align-items: center; }
         .demo-chat-title h3 { margin: 0; color: var(--primary); font-size: 1.2rem; }
         .demo-chat-logo { width: 30px; height: 30px; background-color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; margin-right: 10px; }
@@ -101,62 +35,4 @@
         .demo-message { max-width: 80%; padding: 12px 16px; border-radius: 12px; line-height: 1.5; font-size: 0.95rem; animation: fadeIn 0.3s forwards; opacity: 0; }
         .demo-user-message { align-self: flex-end; background-color: var(--primary); color: white; border-top-right-radius: 4px; }
         .demo-assistant-message { align-self: flex-start; background-color: var(--dark-light); color: var(--light); border-top-left-radius: 4px; }
-        .demo-chat-input { padding: 15px 20px; background-color: var(--dark-light); border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; }
-        .demo-chat-input input { flex: 1; padding: 12px 16px; border-radius: 24px; border: none; background-color: var(--dark-medium); color: var(--light); font-size: 0.95rem; font-family: 'Open Sans', sans-serif; }
-        .demo-chat-input input:focus { outline: none; box-shadow: 0 0 0 2px var(--primary); }
-        .demo-chat-input button { width: 40px; height: 40px; border-radius: 50%; border: none; background-color: var(--primary); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; font-size: 1.2rem; }
-        .demo-chat-input button:hover { background-color: var(--primary-light); transform: scale(1.05); }
-        .demo-typing { display: flex; gap: 5px; padding: 12px 16px; background-color: var(--dark-light); border-radius: 12px; align-self: flex-start; border-top-left-radius: 4px; margin-bottom: 15px; animation: fadeIn 0.3s forwards; opacity: 0; }
-        .demo-typing-dot { width: 8px; height: 8px; background-color: var(--light); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
-        .demo-typing-dot:nth-child(1) { animation-delay: 0s; }
-        .demo-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .demo-typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.6; } 30% { transform: translateY(-5px); opacity: 1; } }
-        /* Agent response styling */
-        .agent-response-container { display: flex; flex-direction: column; align-self: flex-start; max-width: 80%; margin-bottom: 15px; }
-        .agent-identifier { font-size: 0.75rem; margin-bottom: 4px; font-weight: bold; padding-left: 12px; }
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body>
-    <div class="page-wrapper">
-
-        <h1>Thank You!</h1>
-        <p class="intro-text">Thanks for joining the waitlist for Trisha AI!</p>
-        <p class="intro-text">We'll keep you updated via email. In the meantime, try the interactive prototype below:</p>
-
-        <div class="demo-chat-container">
-            <div class="demo-chat-header">
-                <div class="demo-chat-title">
-                    <div class="demo-chat-logo">AI</div>
-                    <h3>Try Trisha.AI</h3>
-                </div>
-                <span class="demo-status">Online</span>
-            </div>
-            <div class="demo-chat-messages" id="chat-messages">
-                </div>
-            <div class="demo-chat-input">
-                <input type="text" id="user-input" placeholder="Ask anything about your studio..." autocomplete="off">
-                <button id="send-button">➤</button>
-            </div>
-        </div>
-
-        <p>
-             <a href="index.html" class="home-link">← Back to Trisha AI Home</a>
-         </p>
-
-    </div> <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatMessages = document.getElementById('chat-messages');
-            const userInput = document.getElementById('user-input');
-            const sendButton = document.getElementById('send-button');
-
-             // Add initial message using the functions below
-             addAssistantMessage("Hi there! I'm Trisha, your AI business assistant for Orangetheory. I can help with marketing, sales, finances, operations, and HR. What would you like to know about your studio today?");
-
-            // Sample responses for demo
-            const responses = [
-                "Based on your studio's data, I notice your 5:30 PM classes are consistently at 98% capacity with waitlists. I recommend adding another class at 5:15 PM to capture this demand and increase revenue.",
-                "Your
+        .demo-chat-input { padding: 15px 20px; background-color: var(--dark-light); border-top: 1px solid
