@@ -11,7 +11,32 @@
 
     <link rel="stylesheet" href="style.css">
 
-    </head>
+    <style>
+        /* Specific styles for thank you page elements if needed */
+        .thank-you-content {
+            text-align: center; /* Center align content */
+            padding: 30px 20px; /* Add padding */
+        }
+         .home-link {
+            margin-top: 30px;
+            display: inline-block;
+            text-decoration: none;
+            color: #FF661F; /* OTF Orange */
+            font-weight: bold;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+        /* Ensure body font applies if not inherited strongly enough */
+        body {
+             font-family: 'Open Sans', sans-serif;
+        }
+        /* Ensure headings inside use Montserrat */
+        h1, h2, h3, h4, h5, h6 {
+             font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
 <body>
 
     <header style="text-align: center; border-bottom: none; box-shadow: none; background: none; padding-top: 20px;">
@@ -52,12 +77,10 @@
 
           // --- Marketing Service ---
           const marketingService = {
-            // createCampaign, getCampaignMetrics, generateOutreachIdeas (simplified)
             generateOutreachIdeas: async (parameters) => { await delay(500); return [{ id: 'idea-1', title: 'Partner with Local Businesses'}, { id: 'idea-2', title: 'Community Fitness Challenge'}]; },
             processQuery: async (query) => {
               console.log('Processing marketing query', query); await delay(1200);
               let response = { type: 'general_marketing', message: `Okay, regarding marketing for "${query}", I can help manage campaigns or suggest local outreach ideas. For example, we could partner with nearby health stores.` };
-              // Simplified logic from before
               if (query.toLowerCase().includes('ideas')) {
                  response.message = 'Here are some local outreach ideas I generated: Partner with local health stores, Run a referral contest.';
               } else if (query.toLowerCase().includes('campaign')) {
@@ -69,123 +92,20 @@
 
           // --- Sales Service (Adapted from Node.js version) ---
           const salesService = {
-            // Removed followUpLead, bookAppointment for simplicity in this demo script
             getLeadMetrics: async () => {
               console.log('Retrieving lead metrics'); await delay(200);
-              // Simplified mock data
               return { totalLeads: 156, newLeadsThisWeek: 24, conversionRate: '15.4%', topLeadSource: 'Website' };
             },
-             // Added mock membership metrics function
             getMembershipMetrics: async () => {
                 console.log('Retrieving membership metrics'); await delay(350);
                 return { totalActiveMembers: 782, newMembersThisMonth: 24, churnRateThisMonth: '3.2%' };
             },
             processQuery: async (query) => {
-              console.log('Processing sales query', { query }); await delay(1000); // Delay for sales query
+              console.log('Processing sales query', { query }); await delay(1000);
               let response;
               const lowerQuery = query.toLowerCase();
 
               if (lowerQuery.includes('lead') || lowerQuery.includes('follow') || lowerQuery.includes('conversion') || lowerQuery.includes('rate')) {
                    const metrics = await salesService.getLeadMetrics();
                    response = { type: 'lead_metrics', message: `Okay, regarding sales leads: We currently have ${metrics.totalLeads} total leads with a conversion rate of ${metrics.conversionRate}. ${metrics.newLeadsThisWeek} new leads came in this week, primarily from the ${metrics.topLeadSource}.` };
-              } else if (lowerQuery.includes('appointment') || lowerQuery.includes('book')) {
-                   response = { type: 'appointment_info', message: 'I can help book appointments. We have availability tomorrow at 9:00 AM, 11:30 AM, and 4:00 PM.' };
-              } else if (lowerQuery.includes('member')) {
-                   const metrics = await salesService.getMembershipMetrics();
-                   response = { type: 'membership_info', message: `Currently, you have ${metrics.totalActiveMembers} active members. We gained ${metrics.newMembersThisMonth} new members this month, with a churn rate of ${metrics.churnRateThisMonth}.` };
-              } else {
-                   response = { type: 'general_sales', message: 'For sales questions, I can help with leads, appointments, or membership details.' };
-              }
-              return response;
-            }
-          };
-
-          // Expose both services
-          return {
-            marketingService,
-            salesService
-          };
-        })();
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatMessages = document.getElementById('chat-messages');
-            const userInput = document.getElementById('user-input');
-            const sendButton = document.getElementById('send-button');
-
-            function addMessage(text, sender) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('demo-message');
-                messageDiv.classList.add(sender === 'user' ? 'demo-user-message' : 'demo-assistant-message');
-                messageDiv.textContent = text;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            function showTypingIndicator() {
-                const typingDiv = document.createElement('div');
-                typingDiv.classList.add('demo-typing');
-                typingDiv.id = 'typing-indicator';
-                typingDiv.innerHTML = '<div class="demo-typing-dot"></div><div class="demo-typing-dot"></div><div class="demo-typing-dot"></div>';
-                chatMessages.appendChild(typingDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            function hideTypingIndicator() {
-                const indicator = document.getElementById('typing-indicator');
-                if (indicator) { indicator.remove(); }
-            }
-
-            async function handleUserInput() {
-                const inputText = userInput.value.trim();
-                if (inputText === '') return;
-
-                addMessage(inputText, 'user');
-                userInput.value = '';
-                showTypingIndicator();
-
-                try {
-                    let response;
-                    const lowerInput = inputText.toLowerCase();
-
-                    // --- Basic Keyword Routing ---
-                    if (lowerInput.includes('member') || lowerInput.includes('lead') || lowerInput.includes('appoint') || lowerInput.includes('book') || lowerInput.includes('sale') || lowerInput.includes('conversion')) {
-                        console.log("Routing to Sales Service");
-                        response = await TrishaAI.salesService.processQuery(inputText);
-                    } else if (lowerInput.includes('market') || lowerInput.includes('campaign') || lowerInput.includes('social') || lowerInput.includes('outreach') || lowerInput.includes('ad')) {
-                        console.log("Routing to Marketing Service");
-                        response = await TrishaAI.marketingService.processQuery(inputText);
-                    }
-                    // Add more 'else if' blocks here for finance, ops, hr later
-                    else {
-                        // Default fallback if no keywords match
-                        console.log("Routing to Default Fallback");
-                        await new Promise(resolve => setTimeout(resolve, 500)); // Simulate thinking
-                        response = { message: "Thanks for your input: '" + inputText + "'. This prototype currently responds best to questions about 'marketing' or 'sales'/'members'/'leads'. Support for other areas is coming soon!" };
-                    }
-                    // ---------------------------
-
-                    hideTypingIndicator();
-                    addMessage(response.message || 'Sorry, I encountered an issue.', 'assistant');
-
-                } catch (error) {
-                    hideTypingIndicator();
-                    console.error("Error processing query:", error);
-                    addMessage('Sorry, something went wrong while processing your request.', 'assistant');
-                }
-            }
-
-            sendButton.addEventListener('click', handleUserInput);
-            userInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleUserInput();
-                }
-            });
-
-             // Update initial message slightly
-             addMessage("Hi there! I'm Trisha, your AI assistant prototype. Try asking about 'marketing ideas' or 'how many members?'", 'assistant');
-        });
-    </script>
-
-</body>
-</html>
+              } else if (lowerQuery.includes('appointment') || lowerQuery.includes('book'))
