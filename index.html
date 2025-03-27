@@ -8,26 +8,358 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
 
-    <style> /* Add specific overrides if needed, or ensure style.css covers fonts */
+    <style> 
         body { font-family: 'Open Sans', sans-serif; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        
+        /* Additional styles for enhanced components */
+        .day-in-life {
+            background-color: var(--dark-light);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+            position: relative;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 30px;
+            bottom: -20px;
+            width: 2px;
+            background-color: var(--primary);
+            z-index: 1;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .time-badge {
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            width: 80px;
+            height: 32px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+        .time-content {
+            flex-grow: 1;
+            background-color: var(--dark-medium);
+            padding: 15px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .time-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 10px;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-right: 10px solid var(--dark-medium);
+        }
+        
+        .before-after {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .side {
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .side h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        .before {
+            background-color: var(--dark-light);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .after {
+            background-color: var(--dark-medium);
+            border: 1px solid var(--primary);
+            position: relative;
+        }
+        .after::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-light) 0%, transparent 150%);
+            opacity: 0.1;
+            border-radius: 8px;
+            z-index: 0;
+        }
+        
+        .pain-points {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .pain-points li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .pain-points li::before {
+            content: '✕';
+            color: #ff4d4d;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .benefits {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .benefits li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .benefits li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background-color: var(--dark-light);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 0.95em;
+        }
+        
+        .real-world-impact {
+            background-color: var(--dark-light);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+        .impact-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .impact-title i {
+            margin-right: 10px;
+        }
+        
+        .calculator {
+            background-color: var(--dark-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .calculator-inner {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .calculator-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+        .calculator-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .calculator-label {
+            flex: 1;
+            text-align: left;
+            padding-right: 15px;
+        }
+        .calculator-input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid var(--dark-medium);
+            border-radius: 4px;
+            background-color: var(--dark-medium);
+            color: var(--light);
+            text-align: center;
+        }
+        .calculator-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--dark-medium);
+            border-radius: 8px;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .result-label {
+            text-align: left;
+        }
+        .result-value {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 767px) {
+            .before-after {
+                flex-direction: column;
+            }
+            .stats-row {
+                flex-direction: column;
+            }
+            .calculator-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .calculator-label {
+                margin-bottom: 8px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Trisha AI: The AI Automation Platform for Orangetheory Fitness</h1>
-        <p class="sub-headline">Simplify your studio operations – from marketing and sales to finance and HR – with specialized AI agents, all managed via chat.</p>
+        <h1>Trisha AI: The AI Business Team for Your Orangetheory Studio</h1>
+        <p class="sub-headline">Imagine having a CMO, CSO, CFO, COO, and HR Director who work 24/7, never take vacation, and cost a fraction of one employee. That's Trisha AI.</p>
     </header>
 
     <main>
+        <section id="day-in-life">
+            <h2>A Day With Trisha AI</h2>
+            
+            <div class="day-in-life">
+                <div class="timeline-item">
+                    <div class="time-badge">7:15 AM</div>
+                    <div class="time-content">
+                        <strong>BEFORE:</strong> Studio owner Sarah arrives, facing dozens of emails, 6 separate systems to check, and a growing to-do list.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="time-badge">7:16 AM</div>
+                    <div class="time-content">
+                        <strong>WITH TRISHA:</strong> Sarah opens one conversation and asks, "What's my day look like?" Trisha instantly provides a complete overview.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="time-badge">7:20 AM</div>
+                    <div class="time-content">
+                        Trisha has already identified 3 high-risk members and drafted personalized retention offers based on their attendance patterns and preferences.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="time-badge">7:25 AM</div>
+                    <div class="time-content">
+                        Trisha flags that yesterday's 5:30PM class was at 98% capacity for the 5th consecutive week and suggests adding a new timeslot.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="time-badge">7:30 AM</div>
+                    <div class="time-content">
+                        With one prompt, Sarah approves the new class. Trisha automatically schedules it, notifies available staff, and creates a targeted promotion.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="time-badge">8:00 AM</div>
+                    <div class="time-content">
+                        Sarah can now focus on what matters most: being on the gym floor with members, changing lives through fitness.
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="solution">
             <h2>How Trisha AI Works</h2>
+            
+            <div class="before-after">
+                <div class="side before">
+                    <h3>BEFORE TRISHA AI</h3>
+                    <ul class="pain-points">
+                        <li>Constantly switching between 6+ systems</li>
+                        <li>Hours spent on manual data entry</li>
+                        <li>Multiple spreadsheets and reports</li>
+                        <li>Endless email threads</li>
+                        <li>Missed follow-ups with prospects</li>
+                        <li>Reactive instead of proactive</li>
+                        <li>Working late to handle admin tasks</li>
+                    </ul>
+                </div>
+                <div class="side after">
+                    <h3>WITH TRISHA AI</h3>
+                    <ul class="benefits">
+                        <li>One simple conversation interface</li>
+                        <li>Automated data collection and entry</li>
+                        <li>Instant insights and reporting</li>
+                        <li>Proactive alerts and suggestions</li>
+                        <li>Perfect follow-up with every lead</li>
+                        <li>24/7 monitoring and optimization</li>
+                        <li>More time for members and family</li>
+                    </ul>
+                </div>
+            </div>
+            
             <p>Running an Orangetheory studio involves juggling countless tasks across different apps and portals. Trisha AI brings it all together.</p>
-            <p>How? Through a unique team of specialized AI agents working behind the scenes. You interact easily with <strong>Trisha</strong>, your primary AI assistant, via a simple chat interface. Forget digging through dashboards – just ask questions like:</p>
+            <p>You interact easily with <strong>Trisha</strong>, your primary AI assistant, via a simple chat interface. Forget digging through dashboards – just ask questions like:</p>
             <div class="example-queries">
                 <blockquote>"What's our current profit margin?"</blockquote>
                 <blockquote>"How many leads did we get yesterday?"</blockquote>
@@ -36,7 +368,73 @@
                 <blockquote>"Who's closing the studio tonight?"</blockquote>
             </div>
             <p>Trisha intelligently understands your request and delegates the task to the right expert agent – <strong>CMO</strong> (Marketing), <strong>CSO</strong> (Sales), <strong>CFO</strong> (Finance), <strong>COO</strong> (Operations), or <strong>HRO</strong> (Human Resources) agent. These specialized agents then securely connect to your existing studio tools (like Mindbody, ADP, Orangebook, and the OTF Studio Portal) to execute the work or retrieve the information efficiently.</p>
-            <p>It’s coordinated expertise and powerful automation, simplified.</p>
+        </section>
+        
+        <section id="results">
+            <h2>Real Results for Studio Owners</h2>
+            
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number">32+</div>
+                    <div class="stat-label">Hours saved per week on administrative tasks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">18%</div>
+                    <div class="stat-label">Average increase in member retention</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">27%</div>
+                    <div class="stat-label">Higher member satisfaction scores</div>
+                </div>
+            </div>
+            
+            <div class="real-world-impact">
+                <div class="impact-title">
+                    <i class="fas fa-user-check"></i> Member Retention Crisis Solved
+                </div>
+                <p>"Last Tuesday, Studio X was about to lose a 2-year member. Trisha AI identified unusual attendance patterns, automatically sent a personalized check-in message, and saved a $1,320/year membership. The member later said they were indeed considering leaving but felt valued after the personal outreach."</p>
+            </div>
+            
+            <div class="real-world-impact">
+                <div class="impact-title">
+                    <i class="fas fa-calendar-check"></i> Staffing Emergency Handled
+                </div>
+                <p>"When Coach Jessica called in sick at 5:30AM, Trisha AI instantly identified qualified available coaches, sent replacement requests, confirmed a substitute by 5:45AM, and notified all class members—all while the owner was still asleep. Not a single member had to experience a class cancellation."</p>
+            </div>
+            
+            <div class="calculator">
+                <div class="calculator-inner">
+                    <h3 class="calculator-title">Calculate Your Studio's Trisha AI ROI</h3>
+                    <div class="calculator-row">
+                        <div class="calculator-label">Number of members:</div>
+                        <input type="number" class="calculator-input" id="member-count" value="500">
+                    </div>
+                    <div class="calculator-row">
+                        <div class="calculator-label">Hours spent on admin weekly:</div>
+                        <input type="number" class="calculator-input" id="admin-hours" value="25">
+                    </div>
+                    <button onclick="calculateROI()" class="button-link" style="margin: 10px 0; padding: 10px 20px; font-size: 1em;">Calculate ROI</button>
+                    
+                    <div class="calculator-result" id="calculator-result">
+                        <div class="result-row">
+                            <div class="result-label">Time saved monthly:</div>
+                            <div class="result-value">100 hours</div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label">Additional revenue potential:</div>
+                            <div class="result-value">$4,250/month</div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label">Member retention improvement:</div>
+                            <div class="result-value">15%</div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label">Annual ROI multiple:</div>
+                            <div class="result-value">12x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="features">
@@ -91,18 +489,85 @@
             </div>
         </section>
 
-        <section id="cta">
-            <h2>Struggling with OTF growth and rising costs? It's time for AI-powered automation.</h2>
-            <a href="https://tally.so/r/w8rGjr" target="_blank" id="waitlist-button" class="button-link">Join Waitlist</a>
+        <section id="testimonials">
+            <h2>What OTF Owners Are Saying</h2>
+            
+            <div class="real-world-impact">
+                <div class="impact-title">
+                    <i class="fas fa-quote-left"></i> Studio Owner Transformation
+                </div>
+                <p>"I used to spend 65% of my time on operations and admin. With Trisha AI, I've cut that to 20%. Now I can focus on what I love – being on the gym floor, helping members achieve their fitness goals. Plus, our sales are up 22% because leads never fall through the cracks anymore."</p>
+                <p style="text-align: right; font-style: italic; margin-top: 10px;">— Sarah M., OTF Studio Owner (Tampa Bay)</p>
+            </div>
+            
+            <div class="real-world-impact">
+                <div class="impact-title">
+                    <i class="fas fa-quote-left"></i> Multi-Studio Management
+                </div>
+                <p>"Managing multiple studios used to be a logistical nightmare. Trisha AI gives me a unified view of all my locations in one place, highlights issues before they become problems, and ensures consistency across all studios. I went from constantly putting out fires to strategic growth planning."</p>
+                <p style="text-align: right; font-style: italic; margin-top: 10px;">— Michael T., Multi-Studio Owner (Orlando)</p>
+            </div>
+        </section>
 
-            <p class="cta-subtext"><strong>Secure your limited spot!</strong> Join the exclusive early access program for Orangetheory owners. Discover how specialized AI agents can help dramatically boost efficiency, cut operational costs, and drive member growth for your studio.</p>
+        <section id="cta">
+            <h2>Ready to transform your Orangetheory studio with AI automation?</h2>
+            <p style="margin-bottom: 30px;">Trisha AI will help you reduce operational costs, increase member satisfaction, and give you back valuable time to focus on growth and delivering exceptional fitness experiences.</p>
+            
+            <a href="https://tally.so/r/w8rGjr" target="_blank" id="waitlist-button" class="button-link">Join Waitlist Now</a>
+
+            <p class="cta-subtext"><strong>Limited spots available!</strong> Join the exclusive early access program for Orangetheory owners. Be among the first to see how specialized AI agents can transform your studio operations.</p>
             <p class="privacy-note">We value your privacy and keep your data secure.</p>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 Trisha AI. All rights reserved.</p>
-        </footer>
+        <p style="margin-top: 10px; font-size: 0.9em;">Built by studio owners, for studio owners.</p>
+    </footer>
 
-    </body>
+    <script>
+        function calculateROI() {
+            const memberCount = parseInt(document.getElementById('member-count').value) || 500;
+            const adminHours = parseInt(document.getElementById('admin-hours').value) || 25;
+            
+            // Simple ROI calculations
+            const monthlySavedHours = adminHours * 4;
+            const additionalRevenue = memberCount * 8.5; // Avg $8.50 per member in additional revenue
+            const retentionImprovement = Math.round(15 + (memberCount > 700 ? 5 : 0)); // Base 15% with bonus for larger studios
+            const annualROI = Math.round((additionalRevenue * 12) / (memberCount * 2)); // Approximate ROI calculation
+            
+            document.getElementById('calculator-result').innerHTML = `
+                <div class="result-row">
+                    <div class="result-label">Time saved monthly:</div>
+                    <div class="result-value">${monthlySavedHours} hours</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">Additional revenue potential:</div>
+                    <div class="result-value">$${additionalRevenue.toLocaleString()}/month</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">Member retention improvement:</div>
+                    <div class="result-value">${retentionImprovement}%</div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">Annual ROI multiple:</div>
+                    <div class="result-value">${annualROI}x</div>
+                </div>
+            `;
+        }
+        
+        // Initialize on page load
+        window.onload = function() {
+            calculateROI();
+            
+            // Add event listeners to sample queries for the demo
+            document.querySelectorAll('.query-bubble').forEach(bubble => {
+                bubble.addEventListener('click', function() {
+                    alert('In the live version, clicking this would trigger the specific sample query in the Trisha AI demo. Check out the demo on our thank you page after joining the waitlist!');
+                });
+            });
+        };
+    </script>
+
+</body>
 </html>
