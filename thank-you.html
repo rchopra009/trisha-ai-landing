@@ -504,13 +504,6 @@
 
         .footer-logo {
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .footer-logo img {
-            height: 30px;
         }
 
         .footer-text {
@@ -637,173 +630,188 @@
             <div class="suggestions" id="suggestions">
                 <div class="suggestion-chip">How many members do I have?</div>
                 <div class="suggestion-chip">What's my studio revenue this month?</div>
-                <div class="suggestion-chip">How are my marketing campaigns performing?</div>
+                <div class="suggestion-chip">What was yesterday's attendance?</div>
                 <div class="suggestion-chip">Which classes have the highest attendance?</div>
             </div>
 
             <div class="disclaimer">
-                Note: This is a prototype demonstration and not connected to any backend systems. The responses are simulated to showcase the potential functionality of Trisha.AI.
+                Note: This is a prototype demonstration and not connected to actual studio data. For this demo, only questions about yesterday's attendance will return real data.
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-logo">
-                <img src="https://rchopra009.github.io/trisha-ai-landing/logo.png" alt="Trisha.AI Logo" onerror="this.src=''; this.style.display='none';">
+                <h3>Trisha.AI</h3>
             </div>
             <p class="footer-text">&copy; 2025 Trisha.AI. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
+        // Trisha AI Frontend Integration
+        // Define the backend API URL
+        const BACKEND_API_URL = 'https://otf-attendance-project.onrender.com';
+
+        // Listen for questions about attendance
         document.addEventListener('DOMContentLoaded', function() {
-            const chatMessages = document.getElementById('chat-messages');
             const userInput = document.getElementById('user-input');
             const sendButton = document.getElementById('send-button');
             const suggestionChips = document.querySelectorAll('.suggestion-chip');
             
-            // Category-specific responses for demo
-            const responsesByCategory = {
-                members: [
-                    "Your studio currently has 782 active members with a retention rate of 87%, which is 5% above the Orangetheory network average. 38% are on unlimited memberships, 42% on 8 classes/month, and 20% on 4 classes/month.",
-                    "This month, you've gained 24 new members and had 16 cancellations, resulting in net growth of 8 members (+1.02%). Your most effective member acquisition channel is referrals, accounting for 42% of new sign-ups.",
-                    "Based on your member data, your highest risk segment is members in months 3-4 of membership who attend less than 6 classes per month. Would you like me to suggest a targeted retention strategy for this group?",
-                    "Looking at your membership demographics, 68% of your members are female and 32% are male. The average age is 36, with your fastest growing segment being 25-34 year olds (+15% YoY).",
-                    "Your member satisfaction score is currently 4.7/5.0 based on 143 recent surveys. Top praise categories are 'coaching quality' and 'community atmosphere', while 'class schedule flexibility' is the most common improvement suggestion."
-                ],
-                finances: [
-                    "Your current month revenue is $92,450, up 8% from last month. Your profit margin is 30.4% which is above the OTF franchise average of 25%. Your largest expense category is staff payroll at 42% of total expenses.",
-                    "Looking at your financial data, I see that retail sales are down 12% this month compared to last month. The largest decrease is in apparel sales. Would you like me to analyze why this might be happening and suggest strategies to boost sales?",
-                    "Based on your current cash flow and seasonal trends, I project your Q3 revenue to be approximately $285,000, representing a 12% growth over Q2. Your estimated profits for Q3 would be approximately $82,650.",
-                    "Your revenue per member is currently $118.22, which is 5% above franchise average. Premium services (late cancel fees, specialty classes) account for 8% of total revenue, up from 6% last quarter.",
-                    "I notice your equipment maintenance costs were 32% higher this month than your 12-month average. This is primarily due to the treadmill service call on May 15th. Your maintenance expense ratio is still within healthy benchmarks."
-                ],
-                marketing: [
-                    "Your Instagram engagement rate is 4.8%, which is significantly above the fitness industry average of 2.1%. Posts featuring member transformations receive 62% more engagement than other content types.",
-                    "The marketing campaign you ran last month brought in 24 new members at an acquisition cost of $43 per member, which is 32% below your usual acquisition cost. I recommend scaling this approach for your next campaign.",
-                    "Based on your local demographic analysis, I've identified two untapped market segments for targeted campaigns: remote workers within 2 miles of your studio and empty-nesters in the Clearwater Heights neighborhood.",
-                    "Your email marketing performance shows a 32% open rate and 8.7% click-through rate, both above industry averages. The 'Welcome Series' emails have a particularly strong 92% open rate and drive significant class bookings.",
-                    "Your Google Business profile generated 175 calls and 312 direction requests last month. 43% of your new leads mentioned finding you through Google. I recommend updating your Google photos which are over 6 months old."
-                ],
-                operations: [
-                    "Based on your studio's data, I notice your 5:30 PM classes are consistently at 98% capacity with waitlists. I recommend adding another class at 5:15 PM to capture this demand and increase revenue.",
-                    "Your class utilization rate is currently 82% overall. Your highest performing class times are 5:30AM (95%), 6:30AM (92%), and 5:30PM (98%). Your lowest performing slots are weekday afternoons at 1:30PM (65%).",
-                    "I've analyzed your class schedule and found that moving your Saturday 8:30 AM class to 9:00 AM could increase attendance by approximately 15% based on member preference data and weekend booking patterns.",
-                    "Your equipment maintenance schedule shows treadmill #4 is due for servicing next week. Based on usage data, I also recommend scheduling maintenance for rowers #2 and #7 which are showing higher power fluctuations than normal.",
-                    "Your class cancellation rate is 4.2%, below the network average of 5.8%. Late cancellations make up 68% of all cancellations, generating approximately $3,400 in late cancel fee revenue monthly."
-                ],
-                staff: [
-                    "Your coaching team currently consists of 8 coaches with an average tenure of 2.3 years. Coach Sarah has the highest member satisfaction rating at 4.9/5.0, followed by Coach Michael at 4.8/5.0.",
-                    "Your staff scheduling efficiency is 91%, which is excellent. I noticed that Tuesday mornings often require scheduling adjustments - creating a backup rotation for this time slot could reduce last-minute changes.",
-                    "Based on class attendance patterns, you could optimize staffing by adding a part-time SA position for peak hours (4:30-7:30PM weekdays), which would improve member check-in experience and retail sales.",
-                    "Coach certification tracking indicates that 3 coaches need CPR renewal in the next 60 days: Jessica, Carlos, and David. Would you like me to draft email reminders for them?",
-                    "Staff turnover analysis shows your retention rate of 82% is better than the industry average of 74%. Exit interviews indicate that the primary satisfaction factors are team culture and growth opportunities."
-                ]
-            };
-            
-            // Default responses if the query doesn't match any category
-            const defaultResponses = [
-                "I can help with various aspects of your Orangetheory studio operations. Would you like insights about your members, finances, marketing, operations, or staff?",
-                "I'm here to assist with your studio management needs. You can ask me about membership trends, financial performance, marketing strategies, operational efficiency, or staff management.",
-                "As your AI business assistant, I can provide information and recommendations for your Orangetheory studio across all business functions. What specific area would you like to explore?",
-                "I can analyze your studio's data to provide actionable insights. Feel free to ask about membership, finances, marketing, operations, or staffing - or any combination of these areas.",
-                "I'm designed to help you optimize your Orangetheory studio performance. What aspect of your business would you like to focus on today?"
-            ];
-            
-            // Function to determine response category based on user input
-            function determineCategory(userInput) {
-                const input = userInput.toLowerCase();
-                
-                if (input.includes('member') || input.includes('client') || input.includes('customer') || input.includes('retention') || input.includes('churn')) {
-                    return 'members';
-                } else if (input.includes('financ') || input.includes('revenue') || input.includes('profit') || input.includes('money') || input.includes('income') || input.includes('expense') || input.includes('budget') || input.includes('cost')) {
-                    return 'finances';
-                } else if (input.includes('market') || input.includes('advertis') || input.includes('campaign') || input.includes('social media') || input.includes('promotion') || input.includes('brand')) {
-                    return 'marketing';
-                } else if (input.includes('operation') || input.includes('class') || input.includes('schedule') || input.includes('equipment') || input.includes('process') || input.includes('attendance')) {
-                    return 'operations';
-                } else if (input.includes('staff') || input.includes('coach') || input.includes('employee') || input.includes('team') || input.includes('hiring') || input.includes('training')) {
-                    return 'staff';
-                } else {
-                    return 'default';
-                }
+            // Add event listeners
+            if (sendButton) {
+                sendButton.addEventListener('click', handleUserMessage);
             }
             
-            // Function to add a user message
-            function addUserMessage(text) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'demo-message demo-user-message';
-                messageDiv.textContent = text;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            
-            // Function to add an assistant message
-            function addAssistantMessage(text) {
-                // First show typing indicator
-                const typingDiv = document.createElement('div');
-                typingDiv.className = 'demo-typing';
-                typingDiv.innerHTML = `
-                    <div class="demo-typing-dot"></div>
-                    <div class="demo-typing-dot"></div>
-                    <div class="demo-typing-dot"></div>
-                `;
-                chatMessages.appendChild(typingDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // After a delay, remove typing indicator and add actual message
-                setTimeout(() => {
-                    chatMessages.removeChild(typingDiv);
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'demo-message demo-assistant-message';
-                    messageDiv.textContent = text;
-                    chatMessages.appendChild(messageDiv);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 1500);
-            }
-            
-            // Function to handle sending a message
-            function sendMessage() {
-                const message = userInput.value.trim();
-                if (message) {
-                    addUserMessage(message);
-                    userInput.value = '';
-                    
-                    // Determine the appropriate response category
-                    const category = determineCategory(message);
-                    let responses;
-                    
-                    if (category === 'default') {
-                        responses = defaultResponses;
-                    } else {
-                        responses = responsesByCategory[category];
+            if (userInput) {
+                userInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleUserMessage();
                     }
-                    
-                    // Get a random response from the appropriate category
-                    const response = responses[Math.floor(Math.random() * responses.length)];
-                    addAssistantMessage(response);
-                }
+                });
             }
-            
-            // Event listeners
-            sendButton.addEventListener('click', sendMessage);
-            userInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
             
             // Suggestion chips
             suggestionChips.forEach(chip => {
                 chip.addEventListener('click', function() {
                     userInput.value = chip.textContent;
-                    sendMessage();
+                    handleUserMessage();
                 });
             });
-            
-            // Focus input on load
-            userInput.focus();
         });
+
+        // Process user messages
+        async function handleUserMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            if (!userInput || !chatMessages) return;
+            
+            const userMessage = userInput.value.trim();
+            if (!userMessage) return;
+            
+            // Add user message to chat
+            addUserMessage(userMessage);
+            userInput.value = '';
+            
+            // If asking about attendance, call the backend API
+            if (isAskingAboutAttendance(userMessage)) {
+                // Show typing indicator
+                showTypingIndicator();
+                
+                try {
+                    // Call the backend API
+                    const response = await fetch(`${BACKEND_API_URL}/api/attendance/yesterday`);
+                    
+                    // Remove typing indicator
+                    removeTypingIndicator();
+                    
+                    if (!response.ok) {
+                        // Handle error
+                        const errorData = await response.json();
+                        addAssistantMessage(`I apologize, but I couldn't retrieve yesterday's attendance data. Error: ${errorData.error || 'Unknown error'}`);
+                        return;
+                    }
+                    
+                    // Parse the response
+                    const data = await response.json();
+                    
+                    // Format and display the response
+                    const formattedDate = formatDate(data.date);
+                    addAssistantMessage(`Yesterday's total attendance was ${data.total_attendance} for the ${data.studio_name} studio on ${formattedDate}.`);
+                    
+                } catch (error) {
+                    // Remove typing indicator and show error
+                    removeTypingIndicator();
+                    addAssistantMessage("I apologize, but I couldn't connect to the attendance service at this time. Please try again later.");
+                    console.error("API Error:", error);
+                }
+            } else {
+                // Handle other types of messages with default responses
+                showTypingIndicator();
+                
+                // Simulate processing time
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    
+                    // Provide a default response for non-attendance queries
+                    const defaultResponses = [
+                        "I'm currently focused on helping with studio attendance data. Could you ask me about yesterday's attendance?",
+                        "As an MVP version, I can currently tell you about yesterday's attendance. Would you like to know that?",
+                        "Right now, I'm specialized in retrieving attendance data. Try asking 'What was yesterday's total attendance?'"
+                    ];
+                    
+                    // Select a random response
+                    const randomResponse = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+                    addAssistantMessage(randomResponse);
+                }, 1500);
+            }
+        }
+
+        // Helper function to check if the user is asking about attendance
+        function isAskingAboutAttendance(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Keywords related to attendance queries
+            const attendanceKeywords = [
+                'attendance', 'attended', 'show up', 'came', 
+                'visit', 'check in', 'people', 'members', 
+                'yesterday', 'yesterday\'s', 'how many'
+            ];
+            
+            // Check if the message contains attendance-related keywords
+            return attendanceKeywords.some(keyword => lowerMessage.includes(keyword));
+        }
+
+        // Helper function to add a user message to the chat
+        function addUserMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'demo-message demo-user-message';
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Helper function to add an assistant message to the chat
+        function addAssistantMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'demo-message demo-assistant-message';
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Helper function to show typing indicator
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chat-messages');
+            const typingElement = document.createElement('div');
+            typingElement.className = 'demo-typing';
+            typingElement.id = 'typing-indicator';
+            typingElement.innerHTML = `
+                <div class="demo-typing-dot"></div>
+                <div class="demo-typing-dot"></div>
+                <div class="demo-typing-dot"></div>
+            `;
+            chatMessages.appendChild(typingElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Helper function to remove typing indicator
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Helper function to format date (YYYY-MM-DD to Month Day, Year)
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
     </script>
 </body>
 </html>
