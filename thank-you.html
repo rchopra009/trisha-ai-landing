@@ -657,7 +657,7 @@
                 <div class="price-save">SAVE 50%</div>
             </div>
 
-            <a href="#" id="payment-button" class="cta-button">RESERVE YOUR SPOT - $99</a>
+            <a href="#" onclick="alert('In the live version, this would connect to Stripe for secure payment processing. Your spot would be reserved with a $99 deposit.'); return false;" class="cta-button">RESERVE YOUR SPOT - $99</a>
 
             <div class="guarantee">
                 <i class="fas fa-shield-alt"></i>
@@ -685,7 +685,7 @@
                     <div class="chat-status">Prototype</div>
                 </div>
                 
-                <div class="chat-messages" id="chatMessages">
+                <div class="chat-messages" id="chat-messages">
                     <div class="message assistant-message">
                         Hi there! I'm Trisha, your AI business assistant for Orangetheory. I can help with marketing, sales, finances, operations, and HR. What would you like to know about your studio today?
                     </div>
@@ -694,21 +694,20 @@
                 <div class="chat-input">
                     <input 
                         type="text" 
-                        id="messageInput" 
+                        id="user-input" 
                         placeholder="Ask anything about your studio..."
-                        autocomplete="off"
                     >
-                    <button class="send-button" id="sendButton">
+                    <button class="send-button" id="send-button" onclick="handleMessage()">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
             </div>
             
             <div class="chat-suggestions">
-                <div class="suggestion" onclick="sendSuggestion('How many members do I have?')">How many members do I have?</div>
-                <div class="suggestion" onclick="sendSuggestion('What\'s my studio revenue this month?')">What's my studio revenue this month?</div>
-                <div class="suggestion" onclick="sendSuggestion('What was yesterday\'s attendance?')">What was yesterday's attendance?</div>
-                <div class="suggestion" onclick="sendSuggestion('Which classes have the highest attendance?')">Which classes have highest attendance?</div>
+                <div class="suggestion" onclick="suggestionClick('How many members do I have?')">How many members do I have?</div>
+                <div class="suggestion" onclick="suggestionClick('What\'s my studio revenue this month?')">What's my studio revenue this month?</div>
+                <div class="suggestion" onclick="suggestionClick('What was yesterday\'s attendance?')">What was yesterday's attendance?</div>
+                <div class="suggestion" onclick="suggestionClick('Which classes have the highest attendance?')">Which classes have highest attendance?</div>
             </div>
             
             <p class="demo-note">Note: This is a prototype demonstration. For this demo, questions about attendance will return sample data.</p>
@@ -723,136 +722,124 @@
     </div>
 
     <script>
-        // Simplified demo chat functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Timer functionality
-            startCountdown();
+        // Simple chat functionality
+        function handleMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
             
-            // Payment button functionality
-            document.getElementById('payment-button').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('In the live version, this would connect to Stripe for secure payment processing. Your spot would be reserved with a $99 deposit.');
-            });
+            if (message === '') return;
             
-            // Chat functionality
-            const messageInput = document.getElementById('messageInput');
-            const sendButton = document.getElementById('sendButton');
-            const chatMessages = document.getElementById('chatMessages');
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
             
-            // Send message on button click
-            sendButton.addEventListener('click', function() {
-                sendMessage();
-            });
+            // Generate response based on message content
+            let response;
+            const lowerMessage = message.toLowerCase();
             
-            // Send message on Enter key press
-            messageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
-            
-            // Function to send message
-            function sendMessage() {
-                const message = messageInput.value.trim();
-                if (message === '') return;
+            if (lowerMessage.includes('attendance') || 
+                lowerMessage.includes('yesterday') || 
+                lowerMessage.includes('members') || 
+                lowerMessage.includes('how many')) {
                 
-                // Add user message
-                addMessage(message, 'user');
-                messageInput.value = '';
+                const today = new Date();
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
                 
-                // Show "typing" effect
-                setTimeout(function() {
-                    // Process response based on message content
-                    let response;
-                    
-                    if (message.toLowerCase().includes('attendance') || 
-                        message.toLowerCase().includes('yesterday') || 
-                        message.toLowerCase().includes('members') || 
-                        message.toLowerCase().includes('how many')) {
-                        // Get yesterday's date
-                        const today = new Date();
-                        const yesterday = new Date(today);
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        
-                        // Format date
-                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                        const formattedDate = yesterday.toLocaleDateString('en-US', options);
-                        
-                        response = `Yesterday's total attendance was 178 for the Clearwater studio on ${formattedDate}.`;
-                    } else if (message.toLowerCase().includes('revenue') || 
-                               message.toLowerCase().includes('money') || 
-                               message.toLowerCase().includes('income') || 
-                               message.toLowerCase().includes('profit')) {
-                        response = "I can provide detailed revenue analytics when connected to your studio's systems. For this demo, I can show you that your current month's revenue is trending 12% higher than last month.";
-                    } else if (message.toLowerCase().includes('marketing') || 
-                               message.toLowerCase().includes('advertis') || 
-                               message.toLowerCase().includes('promotion')) {
-                        response = "Your marketing campaigns are reaching 3,200 potential members in the Clearwater area. I've identified an opportunity to increase engagement by 22% through targeted social media campaigns.";
-                    } else if (message.toLowerCase().includes('class') || 
-                               message.toLowerCase().includes('schedule') || 
-                               message.toLowerCase().includes('session')) {
-                        response = "Your highest performing classes are Tuesday 5:30 PM (98% capacity), Thursday 6:15 AM (95% capacity), and Saturday 8:00 AM (92% capacity). Would you like recommendations for optimizing your schedule?";
-                    } else {
-                        response = "I'm currently in demo mode with limited functionality. Try asking about attendance, revenue, marketing, or class schedules to see how I can help manage your Orangetheory studio.";
-                    }
-                    
-                    // Add response after a slight delay to simulate thinking
-                    setTimeout(function() {
-                        addMessage(response, 'assistant');
-                    }, 500);
-                }, 1000);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = yesterday.toLocaleDateString('en-US', options);
+                
+                response = `Yesterday's total attendance was 178 for the Clearwater studio on ${formattedDate}.`;
+            } 
+            else if (lowerMessage.includes('revenue') || 
+                    lowerMessage.includes('money') || 
+                    lowerMessage.includes('income') || 
+                    lowerMessage.includes('profit')) {
+                response = "I can provide detailed revenue analytics when connected to your studio's systems. For this demo, I can show you that your current month's revenue is trending 12% higher than last month.";
+            } 
+            else if (lowerMessage.includes('marketing') || 
+                    lowerMessage.includes('advertis') || 
+                    lowerMessage.includes('promotion')) {
+                response = "Your marketing campaigns are reaching 3,200 potential members in the Clearwater area. I've identified an opportunity to increase engagement by 22% through targeted social media campaigns.";
+            } 
+            else if (lowerMessage.includes('class') || 
+                    lowerMessage.includes('schedule') || 
+                    lowerMessage.includes('session')) {
+                response = "Your highest performing classes are Tuesday 5:30 PM (98% capacity), Thursday 6:15 AM (95% capacity), and Saturday 8:00 AM (92% capacity). Would you like recommendations for optimizing your schedule?";
+            } 
+            else {
+                response = "I'm currently in demo mode with limited functionality. Try asking about attendance, revenue, marketing, or class schedules to see how I can help manage your Orangetheory studio.";
             }
             
-            // Function to add message to chat
-            function addMessage(text, type) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.classList.add(type + '-message');
-                messageElement.textContent = text;
-                chatMessages.appendChild(messageElement);
-                
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Add AI response after a short delay
+            setTimeout(function() {
+                addMessage(response, 'assistant');
+            }, 1000);
+        }
+        
+        // Add message to chat
+        function addMessage(text, type) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(type + '-message');
+            messageElement.textContent = text;
+            messagesContainer.appendChild(messageElement);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // Handle suggestion clicks
+        function suggestionClick(text) {
+            document.getElementById('user-input').value = text;
+            handleMessage();
+        }
+        
+        // Add enter key functionality
+        document.getElementById('user-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                handleMessage();
             }
         });
         
-        // Function to handle suggestion clicks
-        function sendSuggestion(text) {
-            const messageInput = document.getElementById('messageInput');
-            messageInput.value = text;
-            document.getElementById('sendButton').click();
-        }
-        
-        // Countdown timer functionality
-        function startCountdown() {
-            // Set end time to 48 hours from now
-            const endTime = new Date();
-            endTime.setHours(endTime.getHours() + 48);
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            let hours = 47;
+            let minutes = 59;
+            let seconds = 59;
             
-            // Update timer every second
-            const countdown = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = endTime - now;
+            const countdownInterval = setInterval(function() {
+                seconds--;
                 
-                // Calculate time units
-                const hours = Math.floor(distance / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                }
                 
-                // Update DOM
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+                
+                if (hours < 0) {
+                    clearInterval(countdownInterval);
+                    hours = 0;
+                    minutes = 0;
+                    seconds = 0;
+                }
+                
                 document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
                 document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
                 document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
-                
-                // Stop countdown when finished
-                if (distance < 0) {
-                    clearInterval(countdown);
-                    document.getElementById('hours').textContent = '00';
-                    document.getElementById('minutes').textContent = '00';
-                    document.getElementById('seconds').textContent = '00';
-                }
             }, 1000);
         }
+        
+        // Initialize countdown when page loads
+        window.onload = function() {
+            updateCountdown();
+        };
     </script>
 </body>
 </html>
