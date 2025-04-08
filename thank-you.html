@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You for Joining Trisha.AI</title>
+    <title>Thank You | Trisha AI - Priority Access</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --primary: #FF661F;
@@ -19,6 +21,7 @@
             --dark-light: #333333;
             --light: #f8f9fa;
             --gray: #666666;
+            --green: #4CAF50;
         }
         
         * {
@@ -44,84 +47,42 @@
             font-weight: 700;
         }
 
-        .page-container {
-            position: relative;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background-color: var(--dark-medium);
-            padding: 80px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            z-index: 0;
-        }
-
-        .hero-dot {
-            position: absolute;
-            border-radius: 50%;
-            background-color: var(--primary);
-            opacity: 0.4;
-            filter: blur(40px);
-        }
-
-        .hero-dot:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            right: -100px;
-        }
-
-        .hero-dot:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            left: -50px;
-        }
-
-        .hero-content {
-            max-width: 800px;
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            padding: 20px;
         }
 
-        .check-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px;
+        /* Thank You Section */
+        .thank-you {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: var(--dark-medium);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .check-circle {
+            width: 70px;
+            height: 70px;
             background-color: var(--primary-transparent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 20px;
             position: relative;
         }
 
-        .check-icon::before {
+        .check-circle::before {
             content: '';
             position: absolute;
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             border: 2px solid var(--primary);
             border-radius: 50%;
             opacity: 0.6;
             animation: pulse 2s infinite;
-        }
-
-        .check-icon i {
-            color: var(--primary);
-            font-size: 36px;
         }
 
         @keyframes pulse {
@@ -139,126 +100,269 @@
             }
         }
 
-        .hero-title {
-            color: var(--light);
-            font-size: 3rem;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
+        .check-circle i {
+            color: var(--primary);
+            font-size: 32px;
         }
 
-        .hero-title span {
+        .thank-you h1 {
+            color: var(--light);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .thank-you h1 span {
             color: var(--primary);
         }
 
-        .hero-description {
-            font-size: 1.3rem;
-            margin-bottom: 25px;
-            color: var(--light);
+        .thank-you p {
+            font-size: 18px;
             max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
         }
 
-        .next-steps {
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 600px;
-            margin: 30px auto 0;
-        }
-
-        .next-steps h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--primary-light);
-        }
-
-        .steps-list {
-            text-align: left;
-            list-style: none;
-            counter-reset: steps;
-        }
-
-        .steps-list li {
-            margin-bottom: 12px;
-            padding-left: 35px;
+        /* VIP Access Section */
+        .vip-access {
+            background: linear-gradient(to bottom, var(--dark-medium), var(--dark));
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
             position: relative;
+            overflow: hidden;
         }
 
-        .steps-list li::before {
-            counter-increment: steps;
-            content: counter(steps);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 25px;
-            height: 25px;
+        .vip-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .vip-tag {
             background-color: var(--primary);
             color: white;
-            border-radius: 50%;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .vip-tag i {
+            margin-right: 5px;
+        }
+
+        .vip-heading h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .vip-heading p {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .vip-highlight {
+            background-color: rgba(255, 102, 31, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 4px;
+            margin: 25px 0;
+        }
+
+        .vip-highlight p {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .benefits {
+            margin: 30px 0;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 17px;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .timer-section {
+            background-color: var(--dark);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .timer-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            width: 60px;
+            height: 60px;
+            background-color: var(--dark-light);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .countdown-unit {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .price-regular {
+            font-size: 22px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .price-discount {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .price-save {
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .cta-button {
+            display: block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(229, 90, 23, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(229, 90, 23, 0.4);
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .guarantee i {
+            color: var(--primary);
+        }
+
+        .limited-spots {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 15px;
+        }
+
+        .limited-spots span {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* Demo Section */
         .demo-section {
-            padding: 60px 20px 80px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
+            background-color: var(--dark-medium);
+            border-radius: 12px;
+            padding: 40px;
             margin-bottom: 40px;
         }
 
-        .section-title {
-            font-size: 2.2rem;
+        .demo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-header h2 {
             color: var(--primary);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 3px;
-            background-color: var(--primary);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 3px;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
+        .demo-header p {
             color: var(--gray);
-            max-width: 650px;
-            margin: 20px auto 0;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
+        /* Demo chat container styling */
         .demo-container {
-            background-color: var(--dark-medium);
+            background-color: var(--dark-light);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             margin-bottom: 30px;
-            transform: perspective(1000px) rotateX(2deg);
-            transition: transform 0.5s ease;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .demo-container:hover {
-            transform: perspective(1000px) rotateX(0);
-        }
-
-        .demo-header {
-            background-color: var(--dark-light);
+        .demo-header-chat {
+            background-color: var(--dark);
             padding: 20px;
             display: flex;
             justify-content: space-between;
@@ -320,7 +424,6 @@
             50% { opacity: 0.5; }
         }
 
-        /* Chat container styling */
         .demo-chat-container {
             height: 500px;
             display: flex;
@@ -378,7 +481,7 @@
 
         .demo-chat-input {
             padding: 15px 20px;
-            background-color: var(--dark-light);
+            background-color: var(--dark);
             border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
@@ -458,7 +561,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin: 0 auto;
+            margin: 30px auto 0;
             justify-content: center;
             max-width: 800px;
         }
@@ -485,10 +588,10 @@
         .disclaimer {
             text-align: center;
             max-width: 700px;
-            margin: 40px auto 0;
-            padding: 15px 20px;
+            margin: 20px auto 0;
+            padding: 15px;
             background-color: rgba(0,0,0,0.2);
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 0.9rem;
             color: var(--gray);
             font-style: italic;
@@ -496,24 +599,25 @@
 
         /* Footer */
         .footer {
-            background-color: var(--dark-medium);
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--dark-light);
         }
 
         .footer-logo {
-            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
         }
 
-        .footer-text {
+        .footer p {
             color: var(--gray);
-            font-size: 0.9rem;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 14px;
+            margin-bottom: 5px;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -536,75 +640,122 @@
             }
         }
 
-        /* Mobile responsiveness */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.2rem;
+            .thank-you {
+                padding: 30px 15px;
             }
-            .hero-description {
-                font-size: 1.1rem;
+            .thank-you h1 {
+                font-size: 26px;
             }
-            .section-title {
-                font-size: 1.8rem;
+            .thank-you p {
+                font-size: 16px;
             }
-            .demo-container {
-                transform: none;
+            .vip-access {
+                padding: 25px;
             }
-            .hero-section {
-                padding: 60px 20px;
+            .vip-heading h2 {
+                font-size: 24px;
+            }
+            .benefits-list li {
+                font-size: 16px;
+            }
+            .countdown-value {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            .price-regular {
+                font-size: 18px;
+            }
+            .price-discount {
+                font-size: 30px;
+            }
+            .cta-button {
+                font-size: 18px;
             }
             .demo-section {
-                padding: 40px 20px 60px;
-            }
-            .check-icon {
-                width: 70px;
-                height: 70px;
-            }
-            .check-icon::before {
-                width: 80px;
-                height: 80px;
-            }
-            .check-icon i {
-                font-size: 30px;
+                padding: 25px 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="page-container">
-        <!-- Hero/Thank You Section -->
-        <section class="hero-section">
-            <div class="hero-background">
-                <div class="hero-dot"></div>
-                <div class="hero-dot"></div>
+    <div class="container">
+        <!-- Thank You Section -->
+        <section class="thank-you">
+            <div class="check-circle">
+                <i class="fas fa-check"></i>
             </div>
-            <div class="hero-content">
-                <div class="check-icon">
-                    <i class="fas fa-check"></i>
-                </div>
-                <h1 class="hero-title">You're on the <span>Trisha.AI</span> Waitlist!</h1>
-                <p class="hero-description">Thank you for joining our community of forward-thinking Orangetheory studio owners. You'll be among the first to experience Trisha.AI when it launches.</p>
+            <h1>You're on the <span>Trisha.AI</span> Waitlist!</h1>
+            <p>Thank you for joining our community of forward-thinking Orangetheory studio owners. Your demo access is below.</p>
+        </section>
 
-                <div class="next-steps">
-                    <h3>What happens next?</h3>
-                    <ul class="steps-list">
-                        <li>You'll receive a confirmation email shortly (check your inbox)</li>
-                        <li>We'll keep you updated on Trisha.AI's development progress</li>
-                        <li>You'll get priority access when we launch our beta program</li>
-                    </ul>
+        <!-- VIP Access Section -->
+        <section class="vip-access">
+            <div class="vip-heading">
+                <div class="vip-tag"><i class="fas fa-fire"></i> VIP MEMBER ACCESS</div>
+                <h2>Be First In The World To Transform Your Studio</h2>
+                <p>Secure your position now before your competitors discover this game-changing advantage</p>
+            </div>
+
+            <div class="vip-highlight">
+                <p>This isn't just another tool - it's your studio's survival kit in today's market. While other owners struggle with scattered systems and missed opportunities, you'll have an AI-powered business team working for you 24/7.</p>
+            </div>
+
+            <div class="benefits">
+                <ul class="benefits-list">
+                    <li><strong>Skip the waitlist</strong> - Get immediate priority access when we launch in September 2025</li>
+                    <li><strong>50% discount locked in</strong> for a full 6 months ($594 total savings)</li>
+                    <li><strong>Exclusive founding member status</strong> with direct access to our development team</li>
+                    <li><strong>Shape the future</strong> - Your feedback prioritized in our feature roadmap</li>
+                    <li><strong>No risk</strong> - 100% satisfaction guarantee or your money back</li>
+                </ul>
+            </div>
+
+            <div class="timer-section">
+                <div class="timer-label">Offer Expires In:</div>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="hours">48</div>
+                        <div class="countdown-unit">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="minutes">00</div>
+                        <div class="countdown-unit">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="seconds">00</div>
+                        <div class="countdown-unit">Seconds</div>
+                    </div>
                 </div>
             </div>
+
+            <div class="price-section">
+                <div class="price-regular">$199/mo</div>
+                <div class="price-discount">$99/mo</div>
+                <div class="price-save">SAVE 50%</div>
+            </div>
+
+            <a href="https://buy.stripe.com/test_yourlink" class="cta-button" id="payment-button">RESERVE YOUR SPOT - $99</a>
+
+            <div class="guarantee">
+                <i class="fas fa-shield-alt"></i>
+                <span>Full refund guarantee | Limited to first 10 studios</span>
+            </div>
+
+            <p class="limited-spots">Only <span>7 spots</span> remaining!</p>
         </section>
 
         <!-- Demo Section -->
         <section class="demo-section">
-            <div class="section-header">
-                <h2 class="section-title">Try the Trisha.AI Demo</h2>
-                <p class="section-subtitle">Experience how Trisha.AI will transform your studio operations. Ask about marketing, sales, finances, operations, or HR for your studio.</p>
+            <div class="demo-header">
+                <h2>Try the Trisha.AI Demo</h2>
+                <p>Experience how Trisha.AI will transform your studio operations. Ask about marketing, sales, finances, operations, or HR for your studio.</p>
             </div>
             
             <div class="demo-container">
-                <div class="demo-header">
+                <div class="demo-header-chat">
                     <div class="demo-title">
                         <div class="demo-logo">
                             <i class="fas fa-robot"></i>
@@ -635,26 +786,55 @@
             </div>
 
             <div class="disclaimer">
-                Note: This is a prototype demonstration and not connected to actual studio data. For this demo, only questions about yesterday's attendance will return real data.
+                Note: This is a prototype demonstration. For this demo, only questions about yesterday's attendance will return real data.
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="footer-logo">
-                <h3>Trisha.AI</h3>
-            </div>
-            <p class="footer-text">&copy; 2025 Trisha.AI. All rights reserved.</p>
+            <div class="footer-logo">Trisha.AI</div>
+            <p>Built by studio owners, for studio owners.</p>
+            <p>&copy; 2025 Trisha.AI. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
-        // Trisha AI Frontend Integration
-        // Define the backend API URL
-        const BACKEND_API_URL = 'https://otf-attendance-project.onrender.com';
-
-        // Listen for questions about attendance
+        // Countdown Timer
+        function updateCountdown() {
+            // Set the countdown to 48 hours from now
+            const endTime = new Date();
+            endTime.setHours(endTime.getHours() + 48);
+            
+            function update() {
+                const currentTime = new Date();
+                const diff = endTime - currentTime;
+                
+                if (diff <= 0) {
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+            }
+            
+            // Update the countdown every second
+            update();
+            setInterval(update, 1000);
+        }
+        
+        // Demo Chat Integration
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize countdown timer
+            updateCountdown();
+            
             const userInput = document.getElementById('user-input');
             const sendButton = document.getElementById('send-button');
             const suggestionChips = document.querySelectorAll('.suggestion-chip');
@@ -695,14 +875,14 @@
             addUserMessage(userMessage);
             userInput.value = '';
             
-            // If asking about attendance, call the backend API
+            // If asking about attendance, call the API
             if (isAskingAboutAttendance(userMessage)) {
                 // Show typing indicator
                 showTypingIndicator();
                 
                 try {
                     // Call the backend API
-                    const response = await fetch(`${BACKEND_API_URL}/api/attendance/yesterday`);
+                    const response = await fetch('https://otf-attendance-project.onrender.com/api/attendance/yesterday');
                     
                     // Remove typing indicator
                     removeTypingIndicator();
@@ -735,10 +915,10 @@
                 setTimeout(() => {
                     removeTypingIndicator();
                     
-                    // Provide a default response for non-attendance queries
+                    // Provide a default response
                     const defaultResponses = [
                         "I'm currently focused on helping with studio attendance data. Could you ask me about yesterday's attendance?",
-                        "As an MVP version, I can currently tell you about yesterday's attendance. Would you like to know that?",
+                        "As a prototype, I can currently tell you about yesterday's attendance. Would you like to know that?",
                         "Right now, I'm specialized in retrieving attendance data. Try asking 'What was yesterday's total attendance?'"
                     ];
                     
@@ -812,6 +992,11 @@
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(dateString).toLocaleDateString('en-US', options);
         }
-    </script>
-</body>
-</html>
+        
+        // Setup payment button with Stripe integration
+        document.getElementById('payment-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Replace this with your actual Stripe checkout code
+            alert('In the live version, this would connect to Stripe for secure payment processing. Your spot would be reserved with a $99 deposit.');
+            // window.location.href = 'https://buy.stripe.com/test_yourlink'; // Replace with your Stripe checkout URL
+        });
