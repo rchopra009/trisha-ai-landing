@@ -830,46 +830,75 @@
             setInterval(update, 1000);
         }
         
-        // Demo Chat Integration
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize countdown timer
-            updateCountdown();
-            
-            const userInput = document.getElementById('user-input');
-            const sendButton = document.getElementById('send-button');
-            const suggestionChips = document.querySelectorAll('.suggestion-chip');
-            
-            // Add event listeners
-            if (sendButton) {
-                sendButton.addEventListener('click', handleUserMessage);
-            }
-            
-            if (userInput) {
-                userInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        handleUserMessage();
-                    }
-                });
-            }
-            
-            // Suggestion chips
-            suggestionChips.forEach(chip => {
-                chip.addEventListener('click', function() {
-                    userInput.value = chip.textContent;
-                    handleUserMessage();
-                });
+        // Initialize immediately-invoked function for chat interface
+        (function() {
+            // Initialize countdown timer when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                updateCountdown();
             });
-        });
+            
+            // Wait for window to fully load for chat interface
+            window.addEventListener('load', function() {
+                console.log("Setting up chat interface...");
+                
+                // Get elements
+                const userInput = document.getElementById('user-input');
+                const sendButton = document.getElementById('send-button');
+                const suggestionChips = document.querySelectorAll('.suggestion-chip');
+                
+                console.log("User input element:", userInput);
+                console.log("Send button element:", sendButton);
+                
+                // Add event listeners with debug logging
+                if (sendButton) {
+                    sendButton.addEventListener('click', function() {
+                        console.log("Send button clicked");
+                        handleUserMessage();
+                    });
+                }
+                
+                if (userInput) {
+                    userInput.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            console.log("Enter key pressed");
+                            e.preventDefault();
+                            handleUserMessage();
+                        }
+                    });
+                }
+                
+                // Suggestion chips
+                suggestionChips.forEach(chip => {
+                    chip.addEventListener('click', function() {
+                        console.log("Suggestion chip clicked:", chip.textContent);
+                        userInput.value = chip.textContent;
+                        handleUserMessage();
+                    });
+                });
+                
+                console.log("Chat interface setup complete");
+            });
+        })();
 
         // Process user messages
-        async function handleUserMessage() {
+        function handleUserMessage() {
+            console.log("handleUserMessage function called");
+            
             const userInput = document.getElementById('user-input');
             const chatMessages = document.getElementById('chat-messages');
             
-            if (!userInput || !chatMessages) return;
+            if (!userInput || !chatMessages) {
+                console.error("Missing input or messages element");
+                return;
+            }
             
             const userMessage = userInput.value.trim();
-            if (!userMessage) return;
+            if (!userMessage) {
+                console.log("User message is empty");
+                return;
+            }
+            
+            console.log("User message:", userMessage);
             
             // Add user message to chat
             addUserMessage(userMessage);
@@ -877,9 +906,23 @@
             
             // If asking about attendance, call the API
             if (isAskingAboutAttendance(userMessage)) {
+                console.log("Attendance question detected");
                 // Show typing indicator
                 showTypingIndicator();
                 
+                // Use a simpler approach for the demo
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const today = new Date();
+                    const yesterday = new Date(today);
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    const formattedDate = formatDate(yesterday.toISOString().split('T')[0]);
+                    
+                    // Provide a static response for the demo
+                    addAssistantMessage(`Yesterday's total attendance was 178 for the Clearwater studio on ${formattedDate}.`);
+                }, 1500);
+                
+                /* Uncomment this section if your API is working correctly
                 try {
                     // Call the backend API
                     const response = await fetch('https://otf-attendance-project.onrender.com/api/attendance/yesterday');
@@ -907,7 +950,9 @@
                     addAssistantMessage("I apologize, but I couldn't connect to the attendance service at this time. Please try again later.");
                     console.error("API Error:", error);
                 }
+                */
             } else {
+                console.log("Non-attendance question, providing default response");
                 // Handle other types of messages with default responses
                 showTypingIndicator();
                 
