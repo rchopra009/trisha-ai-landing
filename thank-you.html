@@ -21,7 +21,6 @@
             --dark-light: #333333;
             --light: #f8f9fa;
             --gray: #666666;
-            --green: #4CAF50;
         }
         
         * {
@@ -38,8 +37,6 @@
             min-height: 100vh;
             padding: 0;
             margin: 0;
-            position: relative;
-            overflow-x: hidden;
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -351,66 +348,63 @@
             margin: 0 auto;
         }
 
-        /* Demo chat container styling */
-        .demo-container {
-            background-color: var(--dark-light);
-            border-radius: 16px;
+        /* Chat interface */
+        .chat-container {
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background-color: var(--dark-light);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .demo-header-chat {
+        .chat-header {
             background-color: var(--dark);
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .demo-title {
+        .chat-title {
             display: flex;
             align-items: center;
         }
 
-        .demo-logo {
+        .chat-logo {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 10px;
+            background-color: var(--primary);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .demo-logo i {
+        .chat-logo i {
             color: white;
-            font-size: 1.2rem;
+            font-size: 20px;
         }
 
-        .demo-title h2 {
-            color: var(--primary);
-            font-size: 1.4rem;
+        .chat-title h3 {
             margin: 0;
+            color: white;
+            font-size: 18px;
         }
 
-        .demo-status {
-            font-size: 0.9rem;
-            color: #4CAF50;
-            display: flex;
-            align-items: center;
+        .chat-status {
             background-color: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
             padding: 5px 10px;
             border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
         }
-        
-        .demo-status::before {
+
+        .chat-status::before {
             content: '';
-            display: inline-block;
             width: 8px;
             height: 8px;
             background-color: #4CAF50;
@@ -424,177 +418,125 @@
             50% { opacity: 0.5; }
         }
 
-        .demo-chat-container {
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .demo-chat-messages {
-            flex: 1;
-            padding: 20px;
+        .chat-messages {
+            height: 350px;
             overflow-y: auto;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--dark-light);
         }
 
-        .demo-chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .demo-chat-messages::-webkit-scrollbar-track {
-            background: var(--dark-light);
-        }
-        
-        .demo-chat-messages::-webkit-scrollbar-thumb {
-            background-color: var(--primary);
-            border-radius: 6px;
-        }
-
-        .demo-message {
+        .message {
             max-width: 80%;
-            padding: 14px 18px;
-            border-radius: 12px;
-            line-height: 1.5;
-            font-size: 0.95rem;
-            animation: fadeIn 0.3s forwards;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 12px 15px;
+            border-radius: 10px;
+            animation: fadeIn 0.3s ease;
         }
 
-        .demo-user-message {
-            align-self: flex-end;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            border-top-right-radius: 4px;
-        }
-
-        .demo-assistant-message {
+        .assistant-message {
             align-self: flex-start;
-            background-color: var(--dark-light);
-            color: var(--light);
-            border-top-left-radius: 4px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .demo-chat-input {
-            padding: 15px 20px;
-            background-color: var(--dark);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .demo-chat-input input {
-            flex: 1;
-            padding: 14px 18px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
             background-color: var(--dark-medium);
             color: var(--light);
-            font-size: 0.95rem;
-            font-family: 'Open Sans', sans-serif;
-            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary);
+            border-top-left-radius: 3px;
         }
 
-        .demo-chat-input input:focus {
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+            border-top-right-radius: 3px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: var(--dark);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background-color: var(--dark-medium);
+            color: white;
+            font-size: 14px;
             outline: none;
-            box-shadow: 0 0 0 2px var(--primary-transparent);
-            border-color: var(--primary);
         }
 
-        .demo-chat-input button {
-            width: 46px;
-            height: 46px;
+        .chat-input input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 102, 31, 0.2);
+        }
+
+        .send-button {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background-color: var(--primary);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: none;
+            margin-left: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .demo-chat-input button:hover {
+        .send-button:hover {
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
 
-        .demo-typing {
-            display: flex;
-            gap: 5px;
-            padding: 12px 16px;
-            background-color: var(--dark-light);
-            border-radius: 12px;
-            align-self: flex-start;
-            border-top-left-radius: 4px;
-        }
-        
-        .demo-typing-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--light);
-            border-radius: 50%;
-            animation: typing 1.4s infinite ease-in-out;
-        }
-        
-        .demo-typing-dot:nth-child(1) {
-            animation-delay: 0s;
-        }
-        
-        .demo-typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .demo-typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
+        .send-button i {
+            font-size: 16px;
         }
 
-        /* Suggestions */
-        .suggestions {
+        .chat-suggestions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin: 30px auto 0;
+            gap: 10px;
+            margin-top: 20px;
             justify-content: center;
-            max-width: 800px;
         }
 
-        .suggestion-chip {
-            background-color: var(--dark-light);
+        .suggestion {
+            background-color: var(--dark);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.95rem;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        .suggestion-chip:hover {
-            background-color: var(--primary-transparent);
+        .suggestion:hover {
+            background-color: var(--dark-light);
             border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
 
-        /* Disclaimer */
-        .disclaimer {
+        .demo-note {
             text-align: center;
-            max-width: 700px;
-            margin: 20px auto 0;
-            padding: 15px;
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            font-size: 0.9rem;
             color: var(--gray);
+            font-size: 14px;
             font-style: italic;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Footer */
@@ -616,28 +558,6 @@
             color: var(--gray);
             font-size: 14px;
             margin-bottom: 5px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.6;
-            }
-            30% {
-                transform: translateY(-5px);
-                opacity: 1;
-            }
         }
 
         /* Mobile Responsive */
@@ -737,7 +657,7 @@
                 <div class="price-save">SAVE 50%</div>
             </div>
 
-            <a href="https://buy.stripe.com/test_yourlink" class="cta-button" id="payment-button">RESERVE YOUR SPOT - $99</a>
+            <a href="#" id="payment-button" class="cta-button">RESERVE YOUR SPOT - $99</a>
 
             <div class="guarantee">
                 <i class="fas fa-shield-alt"></i>
@@ -754,40 +674,44 @@
                 <p>Experience how Trisha.AI will transform your studio operations. Ask about marketing, sales, finances, operations, or HR for your studio.</p>
             </div>
             
-            <div class="demo-container">
-                <div class="demo-header-chat">
-                    <div class="demo-title">
-                        <div class="demo-logo">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <div class="chat-logo">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <h2>Trisha.AI</h2>
+                        <h3>Trisha.AI</h3>
                     </div>
-                    <div class="demo-status">Prototype</div>
+                    <div class="chat-status">Prototype</div>
                 </div>
                 
-                <div class="demo-chat-container">
-                    <div class="demo-chat-messages" id="chat-messages">
-                        <div class="demo-assistant-message">
-                            Hi there! I'm Trisha, your AI business assistant for Orangetheory. I can help with marketing, sales, finances, operations, and HR. What would you like to know about your studio today?
-                        </div>
-                    </div>
-                    <div class="demo-chat-input">
-                        <input type="text" id="user-input" placeholder="Ask anything about your studio..." autocomplete="off">
-                        <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        Hi there! I'm Trisha, your AI business assistant for Orangetheory. I can help with marketing, sales, finances, operations, and HR. What would you like to know about your studio today?
                     </div>
                 </div>
+                
+                <div class="chat-input">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Ask anything about your studio..."
+                        autocomplete="off"
+                    >
+                    <button class="send-button" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
-
-            <div class="suggestions" id="suggestions">
-                <div class="suggestion-chip">How many members do I have?</div>
-                <div class="suggestion-chip">What's my studio revenue this month?</div>
-                <div class="suggestion-chip">What was yesterday's attendance?</div>
-                <div class="suggestion-chip">Which classes have the highest attendance?</div>
+            
+            <div class="chat-suggestions">
+                <div class="suggestion" onclick="sendSuggestion('How many members do I have?')">How many members do I have?</div>
+                <div class="suggestion" onclick="sendSuggestion('What\'s my studio revenue this month?')">What's my studio revenue this month?</div>
+                <div class="suggestion" onclick="sendSuggestion('What was yesterday\'s attendance?')">What was yesterday's attendance?</div>
+                <div class="suggestion" onclick="sendSuggestion('Which classes have the highest attendance?')">Which classes have highest attendance?</div>
             </div>
-
-            <div class="disclaimer">
-                Note: This is a prototype demonstration. For this demo, only questions about yesterday's attendance will return real data.
-            </div>
+            
+            <p class="demo-note">Note: This is a prototype demonstration. For this demo, questions about attendance will return sample data.</p>
         </section>
 
         <!-- Footer -->
@@ -799,249 +723,136 @@
     </div>
 
     <script>
-        // Countdown Timer
-        function updateCountdown() {
-            // Set the countdown to 48 hours from now
+        // Simplified demo chat functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Timer functionality
+            startCountdown();
+            
+            // Payment button functionality
+            document.getElementById('payment-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('In the live version, this would connect to Stripe for secure payment processing. Your spot would be reserved with a $99 deposit.');
+            });
+            
+            // Chat functionality
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Send message on button click
+            sendButton.addEventListener('click', function() {
+                sendMessage();
+            });
+            
+            // Send message on Enter key press
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Function to send message
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message
+                addMessage(message, 'user');
+                messageInput.value = '';
+                
+                // Show "typing" effect
+                setTimeout(function() {
+                    // Process response based on message content
+                    let response;
+                    
+                    if (message.toLowerCase().includes('attendance') || 
+                        message.toLowerCase().includes('yesterday') || 
+                        message.toLowerCase().includes('members') || 
+                        message.toLowerCase().includes('how many')) {
+                        // Get yesterday's date
+                        const today = new Date();
+                        const yesterday = new Date(today);
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        
+                        // Format date
+                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        const formattedDate = yesterday.toLocaleDateString('en-US', options);
+                        
+                        response = `Yesterday's total attendance was 178 for the Clearwater studio on ${formattedDate}.`;
+                    } else if (message.toLowerCase().includes('revenue') || 
+                               message.toLowerCase().includes('money') || 
+                               message.toLowerCase().includes('income') || 
+                               message.toLowerCase().includes('profit')) {
+                        response = "I can provide detailed revenue analytics when connected to your studio's systems. For this demo, I can show you that your current month's revenue is trending 12% higher than last month.";
+                    } else if (message.toLowerCase().includes('marketing') || 
+                               message.toLowerCase().includes('advertis') || 
+                               message.toLowerCase().includes('promotion')) {
+                        response = "Your marketing campaigns are reaching 3,200 potential members in the Clearwater area. I've identified an opportunity to increase engagement by 22% through targeted social media campaigns.";
+                    } else if (message.toLowerCase().includes('class') || 
+                               message.toLowerCase().includes('schedule') || 
+                               message.toLowerCase().includes('session')) {
+                        response = "Your highest performing classes are Tuesday 5:30 PM (98% capacity), Thursday 6:15 AM (95% capacity), and Saturday 8:00 AM (92% capacity). Would you like recommendations for optimizing your schedule?";
+                    } else {
+                        response = "I'm currently in demo mode with limited functionality. Try asking about attendance, revenue, marketing, or class schedules to see how I can help manage your Orangetheory studio.";
+                    }
+                    
+                    // Add response after a slight delay to simulate thinking
+                    setTimeout(function() {
+                        addMessage(response, 'assistant');
+                    }, 500);
+                }, a1000);
+            }
+            
+            // Function to add message to chat
+            function addMessage(text, type) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(type + '-message');
+                messageElement.textContent = text;
+                chatMessages.appendChild(messageElement);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+        
+        // Function to handle suggestion clicks
+        function sendSuggestion(text) {
+            const messageInput = document.getElementById('messageInput');
+            messageInput.value = text;
+            document.getElementById('sendButton').click();
+        }
+        
+        // Countdown timer functionality
+        function startCountdown() {
+            // Set end time to 48 hours from now
             const endTime = new Date();
             endTime.setHours(endTime.getHours() + 48);
             
-            function update() {
-                const currentTime = new Date();
-                const diff = endTime - currentTime;
+            // Update timer every second
+            const countdown = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = endTime - now;
                 
-                if (diff <= 0) {
-                    document.getElementById('hours').textContent = '00';
-                    document.getElementById('minutes').textContent = '00';
-                    document.getElementById('seconds').textContent = '00';
-                    return;
-                }
+                // Calculate time units
+                const hours = Math.floor(distance / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
+                // Update DOM
                 document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
                 document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
                 document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
-            }
-            
-            // Update the countdown every second
-            update();
-            setInterval(update, 1000);
-        }
-        
-        // Initialize immediately-invoked function for chat interface
-        (function() {
-            // Initialize countdown timer when DOM is loaded
-            document.addEventListener('DOMContentLoaded', function() {
-                updateCountdown();
-            });
-            
-            // Wait for window to fully load for chat interface
-            window.addEventListener('load', function() {
-                console.log("Setting up chat interface...");
                 
-                // Get elements
-                const userInput = document.getElementById('user-input');
-                const sendButton = document.getElementById('send-button');
-                const suggestionChips = document.querySelectorAll('.suggestion-chip');
-                
-                console.log("User input element:", userInput);
-                console.log("Send button element:", sendButton);
-                
-                // Add event listeners with debug logging
-                if (sendButton) {
-                    sendButton.addEventListener('click', function() {
-                        console.log("Send button clicked");
-                        handleUserMessage();
-                    });
+                // Stop countdown when finished
+                if (distance < 0) {
+                    clearInterval(countdown);
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
                 }
-                
-                if (userInput) {
-                    userInput.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') {
-                            console.log("Enter key pressed");
-                            e.preventDefault();
-                            handleUserMessage();
-                        }
-                    });
-                }
-                
-                // Suggestion chips
-                suggestionChips.forEach(chip => {
-                    chip.addEventListener('click', function() {
-                        console.log("Suggestion chip clicked:", chip.textContent);
-                        userInput.value = chip.textContent;
-                        handleUserMessage();
-                    });
-                });
-                
-                console.log("Chat interface setup complete");
-            });
-        })();
-
-        // Process user messages
-        function handleUserMessage() {
-            console.log("handleUserMessage function called");
-            
-            const userInput = document.getElementById('user-input');
-            const chatMessages = document.getElementById('chat-messages');
-            
-            if (!userInput || !chatMessages) {
-                console.error("Missing input or messages element");
-                return;
-            }
-            
-            const userMessage = userInput.value.trim();
-            if (!userMessage) {
-                console.log("User message is empty");
-                return;
-            }
-            
-            console.log("User message:", userMessage);
-            
-            // Add user message to chat
-            addUserMessage(userMessage);
-            userInput.value = '';
-            
-            // If asking about attendance, call the API
-            if (isAskingAboutAttendance(userMessage)) {
-                console.log("Attendance question detected");
-                // Show typing indicator
-                showTypingIndicator();
-                
-                // Use a simpler approach for the demo
-                setTimeout(() => {
-                    removeTypingIndicator();
-                    const today = new Date();
-                    const yesterday = new Date(today);
-                    yesterday.setDate(yesterday.getDate() - 1);
-                    const formattedDate = formatDate(yesterday.toISOString().split('T')[0]);
-                    
-                    // Provide a static response for the demo
-                    addAssistantMessage(`Yesterday's total attendance was 178 for the Clearwater studio on ${formattedDate}.`);
-                }, 1500);
-                
-                /* Uncomment this section if your API is working correctly
-                try {
-                    // Call the backend API
-                    const response = await fetch('https://otf-attendance-project.onrender.com/api/attendance/yesterday');
-                    
-                    // Remove typing indicator
-                    removeTypingIndicator();
-                    
-                    if (!response.ok) {
-                        // Handle error
-                        const errorData = await response.json();
-                        addAssistantMessage(`I apologize, but I couldn't retrieve yesterday's attendance data. Error: ${errorData.error || 'Unknown error'}`);
-                        return;
-                    }
-                    
-                    // Parse the response
-                    const data = await response.json();
-                    
-                    // Format and display the response
-                    const formattedDate = formatDate(data.date);
-                    addAssistantMessage(`Yesterday's total attendance was ${data.total_attendance} for the ${data.studio_name} studio on ${formattedDate}.`);
-                    
-                } catch (error) {
-                    // Remove typing indicator and show error
-                    removeTypingIndicator();
-                    addAssistantMessage("I apologize, but I couldn't connect to the attendance service at this time. Please try again later.");
-                    console.error("API Error:", error);
-                }
-                */
-            } else {
-                console.log("Non-attendance question, providing default response");
-                // Handle other types of messages with default responses
-                showTypingIndicator();
-                
-                // Simulate processing time
-                setTimeout(() => {
-                    removeTypingIndicator();
-                    
-                    // Provide a default response
-                    const defaultResponses = [
-                        "I'm currently focused on helping with studio attendance data. Could you ask me about yesterday's attendance?",
-                        "As a prototype, I can currently tell you about yesterday's attendance. Would you like to know that?",
-                        "Right now, I'm specialized in retrieving attendance data. Try asking 'What was yesterday's total attendance?'"
-                    ];
-                    
-                    // Select a random response
-                    const randomResponse = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-                    addAssistantMessage(randomResponse);
-                }, 1500);
-            }
+            }, 1000);
         }
-
-        // Helper function to check if the user is asking about attendance
-        function isAskingAboutAttendance(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            // Keywords related to attendance queries
-            const attendanceKeywords = [
-                'attendance', 'attended', 'show up', 'came', 
-                'visit', 'check in', 'people', 'members', 
-                'yesterday', 'yesterday\'s', 'how many'
-            ];
-            
-            // Check if the message contains attendance-related keywords
-            return attendanceKeywords.some(keyword => lowerMessage.includes(keyword));
-        }
-
-        // Helper function to add a user message to the chat
-        function addUserMessage(message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.className = 'demo-message demo-user-message';
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Helper function to add an assistant message to the chat
-        function addAssistantMessage(message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.className = 'demo-message demo-assistant-message';
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Helper function to show typing indicator
-        function showTypingIndicator() {
-            const chatMessages = document.getElementById('chat-messages');
-            const typingElement = document.createElement('div');
-            typingElement.className = 'demo-typing';
-            typingElement.id = 'typing-indicator';
-            typingElement.innerHTML = `
-                <div class="demo-typing-dot"></div>
-                <div class="demo-typing-dot"></div>
-                <div class="demo-typing-dot"></div>
-            `;
-            chatMessages.appendChild(typingElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Helper function to remove typing indicator
-        function removeTypingIndicator() {
-            const typingIndicator = document.getElementById('typing-indicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
-            }
-        }
-
-        // Helper function to format date (YYYY-MM-DD to Month Day, Year)
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-US', options);
-        }
-        
-        // Setup payment button with Stripe integration
-        document.getElementById('payment-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            // Replace this with your actual Stripe checkout code
-            alert('In the live version, this would connect to Stripe for secure payment processing. Your spot would be reserved with a $99 deposit.');
-            // window.location.href = 'https://buy.stripe.com/test_yourlink'; // Replace with your Stripe checkout URL
-        });
+    </script>
+</body>
+</html>
