@@ -1,10 +1,10 @@
-/* CSS extracted from the original demo HTML provided + Base Styles */
+/* CSS for Trisha AI Landing Page */
 :root {
     --primary: #FF661F;         /* OTF Orange */
     --primary-light: #FF8C42;   /* Lighter Orange */
     --dark: #1a1a1a;            /* Very Dark Grey/Black */
-    --dark-medium: #262626;      /* Dark Grey */
-    --dark-light: #333333;       /* Medium Dark Grey */
+    --dark-medium: #262626;     /* Dark Grey */
+    --dark-light: #333333;      /* Medium Dark Grey */
     --light: #f8f9fa;           /* Very Light Grey/Off-white */
     --gray: #666666;            /* Medium Grey */
 }
@@ -105,7 +105,6 @@ h3 {
     font-size: 1.8em;
 }
 
-
 /* Solution Section (index.html) */
 #solution .example-queries {
     background-color: var(--dark-light);
@@ -143,4 +142,375 @@ h3 {
     text-align: center;
     margin: 20px 0;
 }
-#waitlist-button.button-link:hover { background-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 6px 12px rgba
+#waitlist-button.button-link:hover { 
+    background-color: var(--primary-light); 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0,0,0, 0.4);
+}
+.cta-subtext {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+.privacy-note {
+    color: var(--gray);
+    font-size: 0.8em;
+    margin-top: 15px;
+}
+
+/* Day in Life section */
+.day-in-life {
+    background-color: var(--dark-light);
+    border-radius: 8px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+}
+.timeline-item {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+    position: relative;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 30px;
+    bottom: -20px;
+    width: 2px;
+    background-color: var(--primary);
+    z-index: 1;
+}
+.timeline-item:last-child::after {
+    display: none;
+}
+.time-badge {
+    background-color: var(--primary);
+    color: white;
+    font-weight: bold;
+    width: 80px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+.time-content {
+    flex-grow: 1;
+    background-color: var(--dark-medium);
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+.time-content::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 10px solid var(--dark-medium);
+}
+
+/* Before & After section */
+.before-after {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+}
+.side {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+}
+.side h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+.before {
+    background-color: var(--dark-light);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.after {
+    background-color: var(--dark-medium);
+    border: 1px solid var(--primary);
+    position: relative;
+}
+.after::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, transparent 150%);
+    opacity: 0.1;
+    border-radius: 8px;
+    z-index: 0;
+}
+
+/* Pain Points & Benefits lists */
+.pain-points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.pain-points li {
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+}
+.pain-points li::before {
+    content: '✕';
+    color: #ff4d4d;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+.benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.benefits li {
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+}
+.benefits li::before {
+    content: '✓';
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Stats section */
+.stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
+}
+.stat-card {
+    background-color: var(--dark-light);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    transition: transform 0.3s ease;
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+.stat-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+.stat-label {
+    font-size: 0.95em;
+}
+
+/* Impact boxes */
+.real-world-impact {
+    background-color: var(--dark-light);
+    border-left: 4px solid var(--primary);
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 4px;
+}
+.impact-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: var(--primary);
+}
+.impact-title i {
+    margin-right: 10px;
+}
+
+/* ROI Calculator */
+.calculator {
+    background-color: var(--dark-light);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+    text-align: center;
+}
+.calculator-inner {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.calculator-title {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-align: center;
+}
+.calculator-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.calculator-label {
+    flex: 1;
+    text-align: left;
+    padding-right: 15px;
+}
+.calculator-input {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid var(--dark-medium);
+    border-radius: 4px;
+    background-color: var(--dark-medium);
+    color: var(--light);
+    text-align: center;
+}
+.calculator-result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--dark-medium);
+    border-radius: 8px;
+}
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.result-label {
+    text-align: left;
+}
+.result-value {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Video showcase styles */
+.video-showcase {
+    background-color: var(--dark-medium);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid var(--primary);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 365px;
+    border: none;
+    display: block;
+}
+
+.video-title {
+    color: var(--primary);
+    font-size: 1.6em;
+    margin-bottom: 25px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.video-description {
+    max-width: 600px;
+    margin: 25px auto 20px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--dark-light);
+    font-size: 0.9em;
+}
+
+/* Button styles for all buttons */
+.button-link {
+    display: inline-block;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0, 0.3);
+    text-decoration: none;
+    text-align: center;
+}
+.button-link:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0, 0.4);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+    header h1 {
+        font-size: 2em;
+    }
+    .sub-headline {
+        font-size: 1em;
+    }
+    h2 {
+        font-size: 1.6em;
+    }
+    .video-title {
+        font-size: 1.4em;
+    }
+    .video-container iframe {
+        height: 220px;
+    }
+    .before-after {
+        flex-direction: column;
+    }
+    .stats-row {
+        flex-direction: column;
+    }
+    .calculator-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .calculator-label {
+        margin-bottom: 8px;
+    }
+    .timeline-item {
+        flex-direction: column;
+    }
+    .time-badge {
+        margin-bottom: 10px;
+    }
+    .time-content::before {
+        display: none;
+    }
+}
